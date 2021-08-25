@@ -3,9 +3,9 @@ import { Select2 } from '@elementor/app-ui';
 /**
  * Main component.
  *
- * @param {any} props
- * @return {any} -
- * @class
+ * @param props
+ * @returns {*}
+ * @constructor
  */
 export default function ConditionSubId( props ) {
 	if ( ! props.sub || ! Object.keys( props.subIdAutocomplete ).length ) {
@@ -32,8 +32,8 @@ export default function ConditionSubId( props ) {
  * Get settings for the select2 base on the autocomplete settings,
  * that passes as a prop
  *
- * @param {any} autocomplete
- * @return {Object} -
+ * @param autocomplete
+ * @returns object
  */
 function getSettings( autocomplete ) {
 	return {
@@ -47,7 +47,7 @@ function getSettings( autocomplete ) {
 						q: params.data.q,
 						autocomplete,
 					},
-					success,
+					success: success,
 					error: failure,
 				} );
 			},

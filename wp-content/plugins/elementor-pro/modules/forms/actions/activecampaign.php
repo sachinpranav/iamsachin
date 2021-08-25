@@ -162,7 +162,9 @@ class Activecampaign extends Integration_Base {
 		$subscriber = $this->create_subscriber_object( $record );
 
 		if ( ! $subscriber ) {
-			throw new \Exception( __( 'Integration requires an email field and a selected list', 'elementor-pro' ) );
+			$ajax_handler->add_admin_error_message( __( 'ActiveCampaign Integration requires an email field and a selected list', 'elementor-pro' ) );
+
+			return;
 		}
 
 		if ( 'default' === $form_settings['activecampaign_api_credentials_source'] ) {
@@ -173,8 +175,12 @@ class Activecampaign extends Integration_Base {
 			$api_url = $form_settings['activecampaign_api_url'];
 		}
 
-		$handler = new Classes\Activecampaign_Handler( $api_key, $api_url );
-		$handler->create_subscriber( $subscriber );
+		try {
+			$handler = new Classes\Activecampaign_Handler( $api_key, $api_url );
+			$handler->create_subscriber( $subscriber );
+		} catch ( \Exception $exception ) {
+			$ajax_handler->add_admin_error_message( 'ActiveCampaign ' . $exception->getMessage() );
+		}
 	}
 
 	/**

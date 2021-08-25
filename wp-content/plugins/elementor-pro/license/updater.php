@@ -53,9 +53,19 @@ class Updater {
 			return $_transient_data;
 		}
 
-		$version_info = API::get_version( false /* Use Cache */ );
+		$version_info = $this->get_transient( $this->response_transient_key );
+		if ( false === $version_info ) {
+			$version_info = API::get_version();
 
-		if ( is_wp_error( $version_info ) ) {
+			if ( is_wp_error( $version_info ) ) {
+				$version_info = new \stdClass();
+				$version_info->error = true;
+			}
+
+			$this->set_transient( $this->response_transient_key, $version_info );
+		}
+
+		if ( ! empty( $version_info->error ) ) {
 			return $_transient_data;
 		}
 

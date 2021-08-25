@@ -5,13 +5,13 @@ import useScreenshot, { SCREENSHOT_STATUS_SUCCEED, SCREENSHOT_STATUS_FAILED } fr
  * Wrapper function that was made to take screenshots specific for template.
  * it will capture a screenshot and update the templates context with the new screenshot.
  *
- * @param {any} templateType
+ * @param templateType
  */
 export default function useTemplatesScreenshot( templateType = null ) {
 	const { updateTemplateItemState, templates } = React.useContext( TemplatesContext );
 
 	const templatesForScreenshot = Object.values( templates ).filter(
-		( template ) => shouldScreenshotTemplate( template, templateType ),
+		( template ) => shouldScreenshotTemplate( template, templateType )
 	);
 
 	// Start to capture screenshots.
@@ -39,9 +39,9 @@ export default function useTemplatesScreenshot( templateType = null ) {
  * Filter handler.
  * will remove all the drafts and private and also will filter by template type if exists.
  *
- * @param {any} template
- * @param {any} templateType
- * @return {boolean} -
+ * @param template
+ * @param templateType
+ * @returns {boolean}
  */
 function shouldScreenshotTemplate( template, templateType = null ) {
 	if ( templateType ) {

@@ -133,7 +133,9 @@ class Getresponse extends Integration_Base {
 		$subscriber = $this->create_subscriber_object( $record );
 
 		if ( ! $subscriber ) {
-			throw new \Exception( __( 'Integration requires an email field', 'elementor-pro' ) );
+			$ajax_handler->add_admin_error_message( __( 'GetResponse Integration requires an email field', 'elementor-pro' ) );
+
+			return;
 		}
 
 		if ( 'default' === $form_settings['getresponse_api_key_source'] ) {
@@ -151,7 +153,7 @@ class Getresponse extends Integration_Base {
 					continue;
 				}
 				if ( ! in_array( $response['raw']['response']['code'], [ 200, 202, 409 ] ) ) {
-					throw new \Exception( $exception->getMessage() );
+					$ajax_handler->add_error_message( 'GetResponse ' . $exception->getMessage() );
 				}
 			}
 		}

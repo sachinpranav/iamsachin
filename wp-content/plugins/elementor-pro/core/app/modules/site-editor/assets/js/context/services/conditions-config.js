@@ -10,7 +10,7 @@ export class ConditionsConfig {
 	}
 
 	/**
-	 * @return {Promise<ConditionsConfig>} -
+	 * @returns {Promise<ConditionsConfig>}
 	 */
 	static create() {
 		if ( ConditionsConfig.instance ) {
@@ -28,7 +28,7 @@ export class ConditionsConfig {
 	/**
 	 * Get main options for condition name.
 	 *
-	 * @return {Array} -
+	 * @returns {*[]}
 	 */
 	getOptions() {
 		return this.getSubOptions( 'general', true )
@@ -43,9 +43,9 @@ export class ConditionsConfig {
 	/**
 	 * Get the sub options for the select.
 	 *
-	 * @param {string} itemName
-	 * @param {boolean} isSubItem
-	 * @return {Array} -
+	 * @param itemName
+	 * @param isSubItem
+	 * @returns {*[]}
 	 */
 	getSubOptions( itemName, isSubItem = false ) {
 		const config = this.config[ itemName ];
@@ -71,8 +71,8 @@ export class ConditionsConfig {
 	/**
 	 * Get the autocomplete property from the conditions config
 	 *
-	 * @param {string} sub
-	 * @return {{}|any} -
+	 * @param sub
+	 * @returns {{}|*}
 	 */
 	getSubIdAutocomplete( sub ) {
 		const config = this.config[ sub ];
@@ -93,8 +93,7 @@ export class ConditionsConfig {
 	/**
 	 * Calculate instances from the conditions.
 	 *
-	 * @param {Array} conditions
-	 * @return {Object} -
+	 * @returns {object}
 	 */
 	calculateInstances( conditions ) {
 		let instances = conditions.reduce( ( current, condition ) => {
@@ -109,9 +108,9 @@ export class ConditionsConfig {
 				return current;
 			}
 
-			const instanceLabel = condition.subId
-				? `${ config.label } #${ condition.subId }`
-				: config.all_label;
+			const instanceLabel = condition.subId ?
+				`${ config.label } #${ condition.subId }` :
+				config.all_label;
 
 			return {
 				...current,

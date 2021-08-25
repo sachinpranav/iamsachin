@@ -136,7 +136,9 @@ class Convertkit extends Integration_Base {
 		$subscriber = $this->create_subscriber_object( $record );
 
 		if ( ! $subscriber ) {
-			throw new \Exception( __( 'Integration requires an email field', 'elementor-pro' ) );
+			$ajax_handler->add_admin_error_message( __( 'ConvertKit Integration requires an email field', 'elementor-pro' ) );
+
+			return;
 		}
 
 		if ( 'default' === $form_settings['convertkit_api_key_source'] ) {
@@ -149,8 +151,12 @@ class Convertkit extends Integration_Base {
 			$subscriber['tags'] = $form_settings['convertkit_tags'];
 		}
 
-		$handler = new ConvertKit_Handler( $api_key );
-		$handler->create_subscriber( $form_settings['convertkit_form'], $subscriber );
+		try {
+			$handler = new ConvertKit_Handler( $api_key );
+			$handler->create_subscriber( $form_settings['convertkit_form'], $subscriber );
+		} catch ( \Exception $exception ) {
+			$ajax_handler->add_admin_error_message( 'ConvertKit ' . $exception->getMessage() );
+		}
 	}
 
 	/**

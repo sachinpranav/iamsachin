@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Elementor Pro
- * Description: Elevate your designs and unlock the full power of Elementor. Gain access to dozens of Pro widgets and kits, Theme Builder, Pop Ups, Forms and WooCommerce building capabilities.
+ * Description: Elementor Pro brings a whole new design experience to WordPress. Customize your entire theme: header, footer, single post, archive and 404 page, all with one page builder.
  * Plugin URI: https://elementor.com/
  * Author: Elementor.com
- * Version: 3.3.2
- * Elementor tested up to: 3.3.0
+ * Version: 3.1.0
+ * Elementor tested up to: 3.1.0
  * Author URI: https://elementor.com/
  *
  * Text Domain: elementor-pro
@@ -14,10 +14,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-update_option( 'elementor_pro_license_key', 'activated' );
-update_option( '_elementor_pro_license_data', [ 'timeout' => strtotime( '+12 hours', current_time( 'timestamp' ) ), 'value' => json_encode( [ 'license' => 'valid', 'expires' => '01.01.2030' ] ) ] );
 
-define( 'ELEMENTOR_PRO_VERSION', '3.3.2' );
+define( 'ELEMENTOR_PRO_VERSION', '3.1.0' );
+define( 'ELEMENTOR_PRO_PREVIOUS_STABLE_VERSION', '3.0.10' );
 
 define( 'ELEMENTOR_PRO__FILE__', __FILE__ );
 define( 'ELEMENTOR_PRO_PLUGIN_BASE', plugin_basename( ELEMENTOR_PRO__FILE__ ) );
@@ -27,6 +26,8 @@ define( 'ELEMENTOR_PRO_MODULES_PATH', ELEMENTOR_PRO_PATH . 'modules/' );
 define( 'ELEMENTOR_PRO_URL', plugins_url( '/', ELEMENTOR_PRO__FILE__ ) );
 define( 'ELEMENTOR_PRO_ASSETS_URL', ELEMENTOR_PRO_URL . 'assets/' );
 define( 'ELEMENTOR_PRO_MODULES_URL', ELEMENTOR_PRO_URL . 'modules/' );
+update_option( 'elementor_pro_license_key', 'fb351f05958872E193feb37a505a84be' );
+update_option( '_elementor_pro_license_data', [ 'timeout' => strtotime( '+12 hours', current_time( 'timestamp' ) ),'value' => json_encode( [ 'license' => 'valid', 'expires' => 'lifetime','renewal_discount' => 1, 'subscriptions' => 'enable' ] ) ] );
 
 /**
  * Load gettext translate for our text domain.
@@ -44,14 +45,14 @@ function elementor_pro_load_plugin() {
 		return;
 	}
 
-	$elementor_version_required = '3.3.0';
+	$elementor_version_required = '3.1.0-beta4';
 	if ( ! version_compare( ELEMENTOR_VERSION, $elementor_version_required, '>=' ) ) {
 		add_action( 'admin_notices', 'elementor_pro_fail_load_out_of_date' );
 
 		return;
 	}
 
-	$elementor_version_recommendation = '3.3.0';
+	$elementor_version_recommendation = '3.1.0-beta4';
 	if ( ! version_compare( ELEMENTOR_VERSION, $elementor_version_recommendation, '>=' ) ) {
 		add_action( 'admin_notices', 'elementor_pro_admin_notice_upgrade_recommendation' );
 	}

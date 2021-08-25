@@ -12,6 +12,5 @@ module.exports = function( config ) {
 			config.files[ key ] = __dirname + '/' + path;
 			return true;
 		}
-		return false;
 	} );
 };

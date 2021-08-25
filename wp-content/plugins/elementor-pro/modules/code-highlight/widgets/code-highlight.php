@@ -1,7 +1,6 @@
 <?php
 namespace ElementorPro\Modules\CodeHighlight\Widgets;
 
-use Elementor\Modules\DynamicTags\Module as TagsModule;
 use Elementor\Controls_Manager;
 use ElementorPro\Plugin;
 use ElementorPro\Base\Base_Widget;
@@ -60,16 +59,6 @@ class Code_Highlight extends Base_Widget {
 		}
 
 		return array_keys( $depends );
-	}
-
-	public function get_css_config() {
-		// This widget is loading its own CSS using get_style_depends.
-		return [
-			'key' => $this->get_group_name(),
-			'version' => ELEMENTOR_PRO_VERSION,
-			'file_path' => '',
-			'data' => [],
-		];
 	}
 
 	protected function register_controls() {
@@ -137,12 +126,6 @@ class Code_Highlight extends Base_Widget {
 				'label' => __( 'Code', 'elementor-pro' ),
 				'type' => Controls_Manager::CODE,
 				'default' => 'console.log( \'Code is Poetry\' );',
-				'dynamic' => [
-					'active' => true,
-					'categories' => [
-						TagsModule::TEXT_CATEGORY,
-					],
-				],
 			]
 		);
 
@@ -151,6 +134,8 @@ class Code_Highlight extends Base_Widget {
 			[
 				'label' => __( 'Line Numbers', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Show', 'elementor-pro' ),
+				'label_off' => __( 'Hide', 'elementor-pro' ),
 				'return_value' => 'line-numbers',
 				'default' => 'line-numbers',
 			]
@@ -161,8 +146,8 @@ class Code_Highlight extends Base_Widget {
 			[
 				'label' => __( 'Copy to Clipboard', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
-				'label_on' => __( 'On', 'elementor-pro' ),
-				'label_off' => __( 'Off', 'elementor-pro' ),
+				'label_on' => __( 'Show', 'elementor-pro' ),
+				'label_off' => __( 'Hide', 'elementor-pro' ),
 				'return_value' => 'copy-to-clipboard',
 				'default' => 'copy-to-clipboard',
 			]
@@ -183,8 +168,8 @@ class Code_Highlight extends Base_Widget {
 			[
 				'label' => __( 'Word Wrap', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
-				'label_on' => __( 'On', 'elementor-pro' ),
-				'label_off' => __( 'Off', 'elementor-pro' ),
+				'label_on' => __( 'Show', 'elementor-pro' ),
+				'label_off' => __( 'Hide', 'elementor-pro' ),
 				'return_value' => 'word-wrap',
 				'default' => '',
 			]

@@ -81,23 +81,32 @@ class Admin {
 	}
 
 	public static function get_license_key() {
-		return 'activated';
+		return trim( get_option( self::LICENSE_KEY_OPTION_NAME ) );
 	}
 
 	public static function set_license_key( $license_key ) {
-		return update_option( self::LICENSE_KEY_OPTION_NAME, 'activated' );
+		return update_option( self::LICENSE_KEY_OPTION_NAME, $license_key );
 	}
 
 	public function action_activate_license() {
 		check_admin_referer( 'elementor-pro-license' );
 
-		
+		if ( empty( $_POST['elementor_pro_license_key'] ) ) {
+			wp_die( __( 'Please enter your license key.', 'elementor-pro' ), __( 'Elementor Pro', 'elementor-pro' ), [
+				'back_link' => true,
+			] );
+		}
 
-		$license_key = 'activated';
+		$license_key = trim( $_POST['elementor_pro_license_key'] );
 
 		$data = API::activate_license( $license_key );
 
-		
+		if ( is_wp_error( $data ) ) {
+			wp_die( sprintf( '%s (%s) ', $data->get_error_message(), $data->get_error_code() ), __( 'Elementor Pro', 'elementor-pro' ), [
+				'back_link' => true,
+			] );
+		}
+
 		if ( API::STATUS_VALID !== $data['license'] ) {
 			$error_msg = API::get_error_message( $data['error'] );
 			wp_die( $error_msg, __( 'Elementor Pro', 'elementor-pro' ), [
@@ -141,7 +150,7 @@ class Admin {
 	public function display_page() {
 		$license_key = self::get_license_key();
 
-		$is_manual_mode = ( isset( $_GET['mode'] ) && 'manually' === $_GET['mode'] );
+		$is_manual_mode = true;
 
 		if ( $is_manual_mode ) {
 			$this->render_manually_activation_widget( $license_key );
@@ -150,7 +159,7 @@ class Admin {
 
 		?>
 		<div class="wrap elementor-admin-page-license">
-			<h2 class="wp-heading-inline"><?php _e( 'License Settings', 'elementor-pro' ); ?></h2>
+			<h2><?php _e( 'License Settings', 'elementor-pro' ); ?></h2>
 
 			<form class="elementor-license-box" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<?php wp_nonce_field( 'elementor-pro-license' ); ?>

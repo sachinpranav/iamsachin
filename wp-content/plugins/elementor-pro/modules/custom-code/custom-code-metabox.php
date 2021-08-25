@@ -304,10 +304,6 @@ class Custom_Code_Metabox extends Assets_Base {
 					$post_meta = wp_kses_post( $post_meta );
 				}
 				update_post_meta( $post->ID, "_elementor_$field", $post_meta );
-
-				/** @var \ElementorPro\Modules\ThemeBuilder\Module $theme_builder */
-				$theme_builder = Plugin::instance()->modules_manager->get_modules( 'theme-builder' );
-				$theme_builder->get_conditions_manager()->get_cache()->regenerate();
 			}
 		}
 
@@ -316,14 +312,7 @@ class Custom_Code_Metabox extends Assets_Base {
 			$conditions = (array) json_decode( wp_unslash( $_POST['_conditions'] ) );
 
 			foreach ( $conditions as $key => $item ) {
-				$item_assoc_array = (array) $item;
-
-				$conditions[ $key ] = [
-					$item_assoc_array['type'],
-					$item_assoc_array['name'],
-					$item_assoc_array['sub'],
-					$item_assoc_array['subId'],
-				];
+				$conditions[ $key ] = array_values( (array) $item );
 			}
 
 			/** @var \ElementorPro\Modules\ThemeBuilder\Module $theme_builder */

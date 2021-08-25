@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!--[if IE 8]>    <html class="ie8" lang="en-US"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9" lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)] lang="en-US"><![endif]-->
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- feeds & pingback -->
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="https://goggymall.com/xmlrpc.php" />
+<title>Page not found &#8211; My Blog</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="My Blog &raquo; Feed" href="https://goggymall.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="My Blog &raquo; Comments Feed" href="https://goggymall.com/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/goggymall.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='rhstyle-css'  href='https://goggymall.com/wp-content/themes/rehub-theme/style.css?ver=15.6.2' type='text/css' media='all' />
+<link rel='stylesheet' id='rhslidingpanel-css'  href='https://goggymall.com/wp-content/themes/rehub-theme/css/slidingpanel.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='rhcompare-css'  href='https://goggymall.com/wp-content/themes/rehub-theme/css/dynamiccomparison.css?ver=1.3' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://goggymall.com/wp-includes/css/dist/block-library/style.min.css?ver=5.8' type='text/css' media='all' />
+<link rel='stylesheet' id='eggrehub-css'  href='https://goggymall.com/wp-content/themes/rehub-theme/css/eggrehub.css?ver=15.6.2' type='text/css' media='all' />
+<link rel='stylesheet' id='rehubicons-css'  href='https://goggymall.com/wp-content/themes/rehub-theme/iconstyle.css?ver=15.6.2' type='text/css' media='all' />
+<script type='text/javascript' src='https://goggymall.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://goggymall.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' id='cegg-price-alert-js-extra'>
+/* <![CDATA[ */
+var ceggPriceAlert = {"ajaxurl":"https:\/\/goggymall.com\/wp-admin\/admin-ajax.php","nonce":"30279da66f"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://goggymall.com/wp-content/plugins/content-egg/res/js/price_alert.js?ver=5.8' id='cegg-price-alert-js'></script>
+<link rel="https://api.w.org/" href="https://goggymall.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://goggymall.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://goggymall.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8" />
+<link rel="preload" href="https://goggymall.com/wp-content/themes/rehub-theme/fonts/rhicons.woff2?3oibrk" as="font" type="font/woff2" crossorigin="crossorigin"><style type="text/css"> nav.top_menu > ul > li > a{font-weight:normal;} .widget .title:after{border-bottom:2px solid #8035be;}.rehub-main-color-border,nav.top_menu > ul > li.vertical-menu.border-main-color .sub-menu,.rh-main-bg-hover:hover,.wp-block-quote,ul.def_btn_link_tabs li.active a,.wp-block-pullquote{border-color:#8035be;}.wpsm_promobox.rehub_promobox{border-left-color:#8035be!important;}.color_link{color:#8035be !important;}.search-header-contents{border-top-color:#8035be;}.featured_slider:hover .score,.top_chart_controls .controls:hover,article.post .wpsm_toplist_heading:before{border-color:#8035be;}.btn_more:hover,.tw-pagination .current{border:1px solid #8035be;color:#fff}.rehub_woo_review .rehub_woo_tabs_menu li.current{border-top:3px solid #8035be;}.gallery-pics .gp-overlay{box-shadow:0 0 0 4px #8035be inset;}.post .rehub_woo_tabs_menu li.current,.woocommerce div.product .woocommerce-tabs ul.tabs li.active{border-top:2px solid #8035be;}.rething_item a.cat{border-bottom-color:#8035be}nav.top_menu ul li ul.sub-menu{border-bottom:2px solid #8035be;}.widget.deal_daywoo,.elementor-widget-wpsm_woofeatured .deal_daywoo{border:3px solid #8035be;padding:20px;background:#fff;}.deal_daywoo .wpsm-bar-bar{background-color:#8035be !important} #buddypress div.item-list-tabs ul li.selected a span,#buddypress div.item-list-tabs ul li.current a span,#buddypress div.item-list-tabs ul li a span,.user-profile-div .user-menu-tab > li.active > a,.user-profile-div .user-menu-tab > li.active > a:focus,.user-profile-div .user-menu-tab > li.active > a:hover,.news_in_thumb:hover a.rh-label-string,.news_out_thumb:hover a.rh-label-string,.col-feat-grid:hover a.rh-label-string,.carousel-style-deal .re_carousel .controls,.re_carousel .controls:hover,.openedprevnext .postNavigation .postnavprev,.postNavigation .postnavprev:hover,.top_chart_pagination a.selected,.flex-control-paging li a.flex-active,.flex-control-paging li a:hover,.btn_more:hover,body .tabs-menu li:hover,body .tabs-menu li.current,.featured_slider:hover .score,#bbp_user_edit_submit,.bbp-topic-pagination a,.bbp-topic-pagination a,.custom-checkbox label.checked:after,.slider_post .caption,ul.postpagination li.active a,ul.postpagination li:hover a,ul.postpagination li a:focus,.top_theme h5 strong,.re_carousel .text:after,#topcontrol:hover,.main_slider .flex-overlay:hover a.read-more,.rehub_chimp #mc_embed_signup input#mc-embedded-subscribe,#rank_1.rank_count,#toplistmenu > ul li:before,.rehub_chimp:before,.wpsm-members > strong:first-child,.r_catbox_btn,.wpcf7 .wpcf7-submit,.wpsm_pretty_hover li:hover,.wpsm_pretty_hover li.current,.rehub-main-color-bg,.togglegreedybtn:after,.rh-bg-hover-color:hover a.rh-label-string,.rh-main-bg-hover:hover,.rh_wrapper_video_playlist .rh_video_currently_playing,.rh_wrapper_video_playlist .rh_video_currently_playing.rh_click_video:hover,.rtmedia-list-item .rtmedia-album-media-count,.tw-pagination .current,.dokan-dashboard .dokan-dash-sidebar ul.dokan-dashboard-menu li.active,.dokan-dashboard .dokan-dash-sidebar ul.dokan-dashboard-menu li:hover,.dokan-dashboard .dokan-dash-sidebar ul.dokan-dashboard-menu li.dokan-common-links a:hover,#ywqa-submit-question,.woocommerce .widget_price_filter .ui-slider .ui-slider-range,.rh-hov-bor-line > a:after,nav.top_menu > ul:not(.off-canvas) > li > a:after,.rh-border-line:after,.wpsm-table.wpsm-table-main-color table tr th,.rehub_chimp_flat #mc_embed_signup input#mc-embedded-subscribe,.rh-hov-bg-main-slide:before,.rh-hov-bg-main-slidecol .col_item:before{background:#8035be;}@media (max-width:767px){.postNavigation .postnavprev{background:#8035be;}}.rh-main-bg-hover:hover,.rh-main-bg-hover:hover .whitehovered,.user-profile-div .user-menu-tab > li.active > a{color:#fff !important} a,.carousel-style-deal .deal-item .priced_block .price_count ins,nav.top_menu ul li.menu-item-has-children ul li.menu-item-has-children > a:before,.top_chart_controls .controls:hover,.flexslider .fa-pulse,.footer-bottom .widget .f_menu li a:hover,.comment_form h3 a,.bbp-body li.bbp-forum-info > a:hover,.bbp-body li.bbp-topic-title > a:hover,#subscription-toggle a:before,#favorite-toggle a:before,.aff_offer_links .aff_name a,.rh-deal-price,.commentlist .comment-content small a,.related_articles .title_cat_related a,article em.emph,.campare_table table.one td strong.red,.sidebar .tabs-item .detail p a,.footer-bottom .widget .title span,footer p a,.welcome-frase strong,article.post .wpsm_toplist_heading:before,.post a.color_link,.categoriesbox:hover h3 a:after,.bbp-body li.bbp-forum-info > a,.bbp-body li.bbp-topic-title > a,.widget .title i,.woocommerce-MyAccount-navigation ul li.is-active a,.category-vendormenu li.current a,.deal_daywoo .title,.rehub-main-color,.wpsm_pretty_colored ul li.current a,.wpsm_pretty_colored ul li.current,.rh-heading-hover-color:hover h2 a,.rh-heading-hover-color:hover h3 a,.rh-heading-hover-color:hover h4 a,.rh-heading-hover-color:hover h5 a,.rh-heading-hover-color:hover h3,.rh-heading-hover-color:hover h2,.rh-heading-hover-color:hover h4,.rh-heading-hover-color:hover h5,.rh-heading-hover-color:hover .rh-heading-hover-item a,.rh-heading-icon:before,.widget_layered_nav ul li.chosen a:before,.wp-block-quote.is-style-large p,ul.page-numbers li span.current,ul.page-numbers li a:hover,ul.page-numbers li.active a,.page-link > span:not(.page-link-title),blockquote:not(.wp-block-quote) p,span.re_filtersort_btn:hover,span.active.re_filtersort_btn,.deal_daywoo .price,div.sortingloading:after{color:#8035be;} .page-link > span:not(.page-link-title),.widget.widget_affegg_widget .title,.widget.top_offers .title,.widget.cegg_widget_products .title,header .header_first_style .search form.search-form [type="submit"],header .header_eight_style .search form.search-form [type="submit"],.filter_home_pick span.active,.filter_home_pick span:hover,.filter_product_pick span.active,.filter_product_pick span:hover,.rh_tab_links a.active,.rh_tab_links a:hover,.wcv-navigation ul.menu li.active,.wcv-navigation ul.menu li:hover a,form.search-form [type="submit"],.rehub-sec-color-bg,input#ywqa-submit-question,input#ywqa-send-answer,.woocommerce button.button.alt,.tabsajax span.active.re_filtersort_btn,.wpsm-table.wpsm-table-sec-color table tr th,.rh-slider-arrow,.rh-hov-bg-sec-slide:before,.rh-hov-bg-sec-slidecol .col_item:before{background:#000000 !important;color:#fff !important;outline:0}.widget.widget_affegg_widget .title:after,.widget.top_offers .title:after,.widget.cegg_widget_products .title:after{border-top-color:#000000 !important;}.page-link > span:not(.page-link-title){border:1px solid #000000;}.page-link > span:not(.page-link-title),.header_first_style .search form.search-form [type="submit"] i{color:#fff !important;}.rh_tab_links a.active,.rh_tab_links a:hover,.rehub-sec-color-border,nav.top_menu > ul > li.vertical-menu.border-sec-color > .sub-menu,.rh-slider-thumbs-item--active{border-color:#000000}.rh_wrapper_video_playlist .rh_video_currently_playing,.rh_wrapper_video_playlist .rh_video_currently_playing.rh_click_video:hover{background-color:#000000;box-shadow:1200px 0 0 #000000 inset;}.rehub-sec-color{color:#000000} form.search-form input[type="text"]{border-radius:4px}.news .priced_block .price_count,.blog_string .priced_block .price_count,.main_slider .price_count{margin-right:5px}.right_aff .priced_block .btn_offer_block,.right_aff .priced_block .price_count{border-radius:0 !important}form.search-form.product-search-form input[type="text"]{border-radius:4px 0 0 4px;}form.search-form [type="submit"]{border-radius:0 4px 4px 0;}.rtl form.search-form.product-search-form input[type="text"]{border-radius:0 4px 4px 0;}.rtl form.search-form [type="submit"]{border-radius:4px 0 0 4px;}.price_count,.rehub_offer_coupon,#buddypress .dir-search input[type=text],.gmw-form-wrapper input[type=text],.gmw-form-wrapper select,#buddypress a.button,.btn_more,#main_header .wpsm-button,#rh-header-cover-image .wpsm-button,#wcvendor_image_bg .wpsm-button,input[type="text"],textarea,input[type="tel"],input[type="password"],input[type="email"],input[type="url"],input[type="number"],.def_btn,input[type="submit"],input[type="button"],input[type="reset"],.rh_offer_list .offer_thumb .deal_img_wrap,.grid_onsale,.rehub-main-smooth,.re_filter_instore span.re_filtersort_btn:hover,.re_filter_instore span.active.re_filtersort_btn,#buddypress .standard-form input[type=text],#buddypress .standard-form textarea,.blacklabelprice{border-radius:4px}.news-community,.woocommerce .products.grid_woo .product,.rehub_chimp #mc_embed_signup input.email,#mc_embed_signup input#mc-embedded-subscribe,.rh_offer_list,.woo-tax-logo,#buddypress div.item-list-tabs ul li a,#buddypress form#whats-new-form,#buddypress div#invite-list,#buddypress #send-reply div.message-box,.rehub-sec-smooth,.rate-bar-bar,.rate-bar,#wcfm-main-contentainer #wcfm-content,.wcfm_welcomebox_header{border-radius:5px} .woocommerce .woo-button-area .masked_coupon,.woocommerce a.woo_loop_btn,.woocommerce .button.checkout,.woocommerce input.button.alt,.woocommerce a.add_to_cart_button:not(.flat-woo-btn),.woocommerce-page a.add_to_cart_button:not(.flat-woo-btn),.woocommerce .single_add_to_cart_button,.woocommerce div.product form.cart .button,.woocommerce .checkout-button.button,.priced_block .btn_offer_block,.priced_block .button,.rh-deal-compact-btn,input.mdf_button,#buddypress input[type="submit"],#buddypress input[type="button"],#buddypress input[type="reset"],#buddypress button.submit,.wpsm-button.rehub_main_btn,.wcv-grid a.button,input.gmw-submit,#ws-plugin--s2member-profile-submit,#rtmedia_create_new_album,input[type="submit"].dokan-btn-theme,a.dokan-btn-theme,.dokan-btn-theme,#wcfm_membership_container a.wcfm_submit_button,.woocommerce button.button,.rehub-main-btn-bg{background:none #de1414 !important;color:#ffffff !important;fill:#ffffff !important;border:none !important;text-decoration:none !important;outline:0;box-shadow:-1px 6px 19px rgba(222,20,20,0.2) !important;border-radius:4px !important;}.rehub-main-btn-bg > a{color:#ffffff !important;}.woocommerce a.woo_loop_btn:hover,.woocommerce .button.checkout:hover,.woocommerce input.button.alt:hover,.woocommerce a.add_to_cart_button:not(.flat-woo-btn):hover,.woocommerce-page a.add_to_cart_button:not(.flat-woo-btn):hover,.woocommerce a.single_add_to_cart_button:hover,.woocommerce-page a.single_add_to_cart_button:hover,.woocommerce div.product form.cart .button:hover,.woocommerce-page div.product form.cart .button:hover,.woocommerce .checkout-button.button:hover,.priced_block .btn_offer_block:hover,.wpsm-button.rehub_main_btn:hover,#buddypress input[type="submit"]:hover,#buddypress input[type="button"]:hover,#buddypress input[type="reset"]:hover,#buddypress button.submit:hover,.small_post .btn:hover,.ap-pro-form-field-wrapper input[type="submit"]:hover,.wcv-grid a.button:hover,#ws-plugin--s2member-profile-submit:hover,.rething_button .btn_more:hover,#wcfm_membership_container a.wcfm_submit_button:hover,.woocommerce button.button:hover,.rehub-main-btn-bg:hover,.rehub-main-btn-bg:hover > a{background:none #de1414 !important;color:#ffffff !important;border-color:transparent;box-shadow:-1px 6px 13px rgba(222,20,20,0.4) !important;}.rehub_offer_coupon:hover{border:1px dashed #de1414;}.rehub_offer_coupon:hover i.far,.rehub_offer_coupon:hover i.fal,.rehub_offer_coupon:hover i.fas{color:#de1414}.re_thing_btn .rehub_offer_coupon.not_masked_coupon:hover{color:#de1414 !important}.woocommerce a.woo_loop_btn:active,.woocommerce .button.checkout:active,.woocommerce .button.alt:active,.woocommerce a.add_to_cart_button:not(.flat-woo-btn):active,.woocommerce-page a.add_to_cart_button:not(.flat-woo-btn):active,.woocommerce a.single_add_to_cart_button:active,.woocommerce-page a.single_add_to_cart_button:active,.woocommerce div.product form.cart .button:active,.woocommerce-page div.product form.cart .button:active,.woocommerce .checkout-button.button:active,.wpsm-button.rehub_main_btn:active,#buddypress input[type="submit"]:active,#buddypress input[type="button"]:active,#buddypress input[type="reset"]:active,#buddypress button.submit:active,.ap-pro-form-field-wrapper input[type="submit"]:active,.wcv-grid a.button:active,#ws-plugin--s2member-profile-submit:active,input[type="submit"].dokan-btn-theme:active,a.dokan-btn-theme:active,.dokan-btn-theme:active,.woocommerce button.button:active,.rehub-main-btn-bg:active{background:none #de1414 !important;box-shadow:0 1px 0 #999 !important;top:2px;color:#ffffff !important;}.rehub_btn_color{background-color:#de1414;border:1px solid #de1414;color:#ffffff;text-shadow:none}.rehub_btn_color:hover{color:#ffffff;background-color:#de1414;border:1px solid #de1414;}.rething_button .btn_more{border:1px solid #de1414;color:#de1414;}.rething_button .priced_block.block_btnblock .price_count{color:#de1414;font-weight:normal;}.widget_merchant_list .buttons_col{background-color:#de1414 !important;}.widget_merchant_list .buttons_col a{color:#ffffff !important;}.rehub-svg-btn-fill svg{fill:#de1414;}.rehub-svg-btn-stroke svg{stroke:#de1414;}@media (max-width:767px){#float-panel-woo-area{border-top:1px solid #de1414}}</style><style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style></head>
+<body class="error404 wp-embed-responsive noinnerpadding elementor-default elementor-kit-8">
+	               
+<!-- Outer Start -->
+<div class="rh-outer-wrap">
+    <div id="top_ankor"></div>
+    <!-- HEADER -->
+            <header id="main_header" class="white_style width-100p position-relative">
+            <div class="header_wrap">
+                                                                <!-- Logo section -->
+<div class="logo_section_wrap hideontablet">
+    <div class="rh-container">
+        <div class="logo-section rh-flex-center-align tabletblockdisplay header_seven_style clearfix">
+            <div class="logo">
+          		          			<div class="textlogo pb10 fontbold rehub-main-color">My Blog</div>
+                    <div class="sloganlogo lineheight15">My WordPress Blog</div>
+          		       
+            </div>                       
+            <div class="search head_search position-relative">
+                                <form  role="search" method="get" class="search-form" action="https://goggymall.com/">
+  	<input type="text" name="s" placeholder="Search"  data-posttype="">
+  	<input type="hidden" name="post_type" value="" />  	<button type="submit" class="btnsearch" aria-label="Search"><i class="rhicon rhi-search"></i></button>
+</form>
+            </div>
+            <div class=" rh-flex-right-align">
+                <div class="header-actions-logo rh-flex-right-align">
+                    <div class="tabledisplay">
+                         
+                         
+                                                                                <div class="celldisplay text-center">
+                            <a href="https://goggymall.com/wishlist/" class="rh-header-icon mobileinmenu rh-wishlistmenu-link">
+                                                                <span class="rhicon rhi-hearttip position-relative">
+                                    <span class="rh-icon-notice rhhidden rehub-main-color-bg"></span>                                </span>
+                            </a>
+                            <span class="heads_icon_label rehub-main-font">
+                                                            </span>                            
+                            </div>
+                                                                                   
+                                                                                <div class="celldisplay mobileinmenu rh-comparemenu-link rh-header-icon text-center">
+                            <span class="re-compare-icon-toggle position-relative"><i class="rhicon rhi-shuffle"></i><span class="re-compare-notice rehub-main-color-bg">0</span></span>                            <span class="heads_icon_label rehub-main-font">
+                                                            </span>
+                            </div>
+                                                                        
+                    </div>                     
+                </div>  
+            </div>                        
+        </div>
+    </div>
+</div>
+<!-- /Logo section -->  
+<!-- Main Navigation -->
+<div class="search-form-inheader main-nav mob-logo-enabled white_style">  
+    <div class="rh-container"> 
+	        
+        <nav class="top_menu"><ul class="menu"><li><a href="/wp-admin/nav-menus.php" target="_blank">Click to Add your menu</a></li></ul></nav>        <div class="responsive_nav_wrap rh_mobile_menu">
+            <div id="dl-menu" class="dl-menuwrapper rh-flex-center-align">
+                <button id="dl-trigger" class="dl-trigger" aria-label="Menu">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <line stroke-linecap="round" id="rhlinemenu_1" y2="7" x2="29" y1="7" x1="3"/>
+                            <line stroke-linecap="round" id="rhlinemenu_2" y2="16" x2="18" y1="16" x1="3"/>
+                            <line stroke-linecap="round" id="rhlinemenu_3" y2="25" x2="26" y1="25" x1="3"/>
+                        </g>
+                    </svg>
+                </button>
+                <div id="mobile-menu-icons" class="rh-flex-center-align rh-flex-right-align">
+                    <button class='icon-search-onclick' aria-label='Search'><i class='rhicon rhi-search'></i></button>
+                    <div id="slide-menu-mobile"></div>
+                </div>
+            </div>
+                    </div>
+        <div class="search-header-contents">
+            <form  role="search" method="get" class="search-form" action="https://goggymall.com/">
+  	<input type="text" name="s" placeholder="Search"  data-posttype="">
+  	<input type="hidden" name="post_type" value="" />  	<button type="submit" class="btnsearch" aria-label="Search"><i class="rhicon rhi-search"></i></button>
+</form>
+            
+        </div>
+    </div>
+</div>
+<!-- /Main Navigation -->
+ 
+            </div>  
+        </header>
+            <!-- CONTENT -->
+<div class="rh-container"> 
+    <div class="rh-content-wrap clearfix">
+          <!-- Main Side -->
+          <div class="main-side clearfix">
+            <div class="post errorpage">				
+                <span class="error-text">Houston, we have a problem.</span>
+                <h2>404</h2>
+                <span class="error-text">The page you are looking for has not been found.</span>
+                <div class="clearfix"></div>
+                <form  role="search" method="get" class="search-form" action="https://goggymall.com/">
+  	<input type="text" name="s" placeholder="Search"  data-posttype="">
+  	<input type="hidden" name="post_type" value="" />  	<button type="submit" class="btnsearch" aria-label="Search"><i class="rhicon rhi-search"></i></button>
+</form>
+			
+            </div>	
+        </div>	
+        <!-- /Main Side -->
+        <!-- Sidebar -->
+        <aside class="sidebar">            
+    <!-- SIDEBAR WIDGET AREA -->
+ 			<div id="search-2" class="widget widget_search"><form  role="search" method="get" class="search-form" action="https://goggymall.com/">
+  	<input type="text" name="s" placeholder="Search"  data-posttype="">
+  	<input type="hidden" name="post_type" value="" />  	<button type="submit" class="btnsearch" aria-label="Search"><i class="rhicon rhi-search"></i></button>
+</form>
+</div>
+		<div id="recent-posts-2" class="widget widget_recent_entries">
+		<div class="title">Recent Posts</div>
+		<ul>
+											<li>
+					<a href="https://goggymall.com/2021/05/11/hello-world/">Hello world!</a>
+									</li>
+					</ul>
+
+		</div><div id="recent-comments-2" class="widget widget_recent_comments"><div class="title">Recent Comments</div><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='https://wordpress.org/' rel='external nofollow ugc' class='url'>A WordPress Commenter</a></span> on <a href="https://goggymall.com/2021/05/11/hello-world/#comment-1">Hello world!</a></li></ul></div>	        
+</aside>        <!-- /Sidebar --> 
+    </div>
+</div>
+<!-- /CONTENT -->     
+<!-- FOOTER -->
+				
+	 				<div class="footer-bottom dark_style">
+							<style scoped>
+              .footer-bottom.dark_style{background-color: #000000;}
+              .footer-bottom.dark_style .footer_widget { color: #ccc;}
+              .footer-bottom.dark_style .footer_widget .title, .footer-bottom.dark_style .footer_widget h2, .footer-bottom.dark_style .footer_widget a, .footer-bottom .footer_widget.dark_style ul li a{color: #f1f1f1;}
+              .footer-bottom.dark_style .footer_widget .widget_categories ul li:before, .footer-bottom.dark_style .footer_widget .widget_archive ul li:before, .footer-bottom.dark_style .footer_widget .widget_nav_menu ul li:before{color:#fff;}
+            </style>						<div class="rh-container clearfix">
+									<div class="rh-flex-eq-height col_wrap_three mb0">
+						<div class="footer_widget mobileblockdisplay pt25 col_item mb0">
+															<p>No widgets added. You can disable footer widget area in theme options - footer options</p>
+							 
+						</div>
+						<div class="footer_widget mobileblockdisplay disablemobilepadding pt25 col_item mb0">
+							 
+						</div>
+						<div class="footer_widget mobileblockdisplay pt25 col_item last mb0">
+							 
+						</div>
+					</div>
+									
+			</div>	
+		</div>
+				<!-- FOOTER -->
+</div><!-- Outer End -->
+<span class="rehub_scroll" id="topcontrol" data-scrollto="#top_ankor"><i class="rhicon rhi-chevron-up"></i></span>
+       
+
+     
+
+    <div id="rhmobpnlcustom" class="rhhidden"><div id="rhmobtoppnl" style="" class="pr15 pl15 pb15 pt15"></div></div>    
+              
+
+			<div id="re-compare-bar" class="from-right rh-sslide-panel">
+			<div id="re-compare-bar-wrap" class="rh-sslide-panel-wrap">
+				<div id="re-compare-bar-heading" class="rh-sslide-panel-heading">
+					<h5 class="rehub-main-color pt15 pb15 pr15 pl20 mt0 mb0 font120">Compare items<i class="blackcolor closecomparepanel rh-sslide-close-btn cursorpointer floatright font130 rhi-times-circle rhicon" aria-hidden="true"></i></h5>
+				</div>
+				<div id="re-compare-bar-tabs" class="rh-sslide-panel-tabs abdfullwidth mt30 pb30 pt30 width-100p">
+											<ul class="rhhidden"><li class="re-compare-tab-7 no-multicats" data-page="7" data-url="https://goggymall.com/comparison/">Total (<span>0</span>)</li></ul>
+						<div><div class="rh-sslide-panel-inner mt10 re-compare-wrap pr20 pl20 re-compare-wrap-7"></div></div>
+										<span class="re-compare-destin wpsm-button rehub_main_btn" data-compareurl="">Compare<i class="rhi-arrow-circle-right rhicon" aria-hidden="true"></i></span>
+				</div>
+			</div>
+		</div>
+					<div id="re-compare-icon-fixed" class="rhhidden">
+				<span class="re-compare-icon-toggle position-relative"><i class="rhicon rhi-shuffle"></i><span class="re-compare-notice rehub-main-color-bg">0</span></span>			</div>
+						
+	<script type='text/javascript' src='https://goggymall.com/wp-content/themes/rehub-theme/js/tablechart.js?ver=1.7' id='rehubtablechart-js'></script>
+<script type='text/javascript' id='rehubcompare-js-extra'>
+/* <![CDATA[ */
+var comparechart = {"item_error_add":"Please, add items to this compare group or choose not empty group","item_error_comp":"Please, add more items to compare","comparenonce":"ddb8d18965"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://goggymall.com/wp-content/themes/rehub-theme/js/comparechart.js?ver=1.8' id='rehubcompare-js'></script>
+<script type='text/javascript' src='https://goggymall.com/wp-content/themes/rehub-theme/js/inview.js?ver=1.1' id='rhinview-js'></script>
+<script type='text/javascript' src='https://goggymall.com/wp-content/themes/rehub-theme/js/pgwmodal.js?ver=2.0' id='rhpgwmodal-js'></script>
+<script type='text/javascript' src='https://goggymall.com/wp-content/themes/rehub-theme/js/unveil.js?ver=5.2.1' id='rhunveil-js'></script>
+<script type='text/javascript' src='https://goggymall.com/wp-content/themes/rehub-theme/js/hoverintent.js?ver=1.9' id='rhhoverintent-js'></script>
+<script type='text/javascript' src='https://goggymall.com/wp-content/themes/rehub-theme/js/countdown.js?ver=1.1' id='rhcountdown-js'></script>
+<script type='text/javascript' id='rehub-js-extra'>
+/* <![CDATA[ */
+var rhscriptvars = {"back":"back","ajax_url":"\/wp-admin\/admin-ajax.php","fin":"That's all","noresults":"No results found","your_rating":"Your Rating:","nonce":"7c683b3b0a","hotnonce":"956f5d6c79","wishnonce":"704ac84584","searchnonce":"6dae6a5308","filternonce":"82c71d420b","rating_tabs_id":"5b7d2bc3e4","max_temp":"10","min_temp":"-10","helpnotnonce":"a6c7db5967"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://goggymall.com/wp-content/themes/rehub-theme/js/custom.js?ver=15.6.2' id='rehub-js'></script>
+<script type='text/javascript' src='https://goggymall.com/wp-includes/js/wp-embed.min.js?ver=5.8' id='wp-embed-js'></script>
+</body>
+</html>
