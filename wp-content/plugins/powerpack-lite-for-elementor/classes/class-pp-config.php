@@ -183,7 +183,7 @@ class PP_Config {
 				),
 				'Info_Box_Carousel'    => array(
 					'name'       => 'pp-info-box-carousel',
-					'title'      => __( 'Info Box Carousel', 'powerpack' ),
+					'title'      => __( 'Info Grid & Carousel', 'powerpack' ),
 					'categories' => array( 'powerpack-elements' ),
 					'keywords'   => array( 'powerpack', 'info' ),
 					'icon'       => 'ppicon-info-box-carousel power-pack-admin-icon',
@@ -752,6 +752,11 @@ class PP_Config {
 			// Team Member.
 			'Team_Member_Carousel' => array(
 				__( 'Widget Overview', 'powerpack' ) => 'https://powerpackelements.com/docs/team-member-carousel-widget-overview/' . $utm_suffix,
+			),
+			// Twitter Grid.
+			'Twitter_Grid'        => array(
+				__( 'Widget Overview', 'powerpack' ) => 'https://powerpackelements.com/docs/twitter-widget-overview/' . $utm_suffix,
+				__( 'How to Create a Collection URL for Twitter Grid', 'powerpack' ) => 'https://powerpackelements.com/docs/how-to-create-a-collection-url-for-twitter-grid/' . $utm_suffix,
 			),
 			// Twitter Widget.
 			'Twitter_Widget'        => array(

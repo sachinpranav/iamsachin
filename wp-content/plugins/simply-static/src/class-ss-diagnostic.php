@@ -25,7 +25,9 @@ class Diagnostic {
 	 * @var array
 	 */
 	protected $description = array(
-		'URLs' => array(),
+		'URLs' => array(
+			array( 'function' => 'is_ssl' )
+		),
 		'Filesystem' => array(
 			array( 'function' => 'is_temp_files_dir_readable' ),
 			array( 'function' => 'is_temp_files_dir_writeable' )
@@ -119,23 +121,22 @@ class Diagnostic {
 		);
 	}
 
+	public function is_ssl() {
+		return array(
+			'label' => esc_html__('Checking if website has an SSL certificate (HTTPS)', 'simply-static' ),
+			'test' => is_ssl()
+		);
+	}
+
 	public function is_additional_url_valid( $url ) {
-		$label = sprintf( __( 'Checking if Additional URL <code>%s</code> is valid', 'simply-static' ), $url );
-		if ( filter_var( $url, FILTER_VALIDATE_URL ) === false ) {
-			$test = false;
-			$message = __( 'Not a valid URL', 'simply-static' );
-		} else if ( ! Util::is_local_url( $url ) ) {
-			$test = false;
-			$message = __( 'Not a local URL', 'simply-static' );
-		} else {
-			$test = true;
-			$message = null;
-		}
+		$label    = sprintf( __( 'Checking if Additional URL <code>%s</code> is valid', 'simply-static' ), $url );
+		$response = Url_Fetcher::remote_get( $url );
+		$infos    = $this->check_error_from_response( $response );
 
 		return array(
-			'label' => $label,
-			'test' => $test,
-			'message' => $message
+			'label'   => $label,
+			'test'    => $infos['test'],
+			'message' => $infos['message']
 		);
 	}
 
@@ -181,34 +182,22 @@ class Diagnostic {
 		);
 	}
 
+	/**
+	 * Check if WP can make requests.
+	 *
+	 * @return array
+	 */
 	public function can_wp_make_requests_to_itself() {
 		$ip_address = getHostByName( getHostName() );
-		$label = sprintf( __( "Checking if WordPress can make requests to itself from <code>%s</code>", 'simply-static' ), $ip_address );
+		$label      = sprintf( __( "Checking if WordPress can make requests to itself from <code>%s</code>", 'simply-static' ), $ip_address );
+		$url        = Util::origin_url(); $response = Url_Fetcher::remote_get( $url );
 
-		$url = Util::origin_url();
-		$response = Url_Fetcher::remote_get( $url );
-
-		if ( is_wp_error( $response ) ) {
-			$test = false;
-			$message = null;
-		} else {
-			$code = $response['response']['code'];
-			if ( $code == 200 ) {
-				$test = true;
-				$message = $code;
-			} else if ( in_array( $code, Page::$processable_status_codes ) ) {
-				$test = false;
-				$message = sprintf( __( "Received a %s response. This might indicate a problem.", 'simply-static' ), $code );
-			} else {
-				$test = false;
-				$message = sprintf( __( "Received a %s response.", 'simply-static' ), $code );;
-			}
-		}
+		$infos = $this->check_error_from_response( $response );
 
 		return array(
-			'label' => $label,
-			'test' => $test,
-			'message' => $message
+			'label'   => $label,
+			'test'    => $infos['test'],
+			'message' => $infos['message']
 		);
 	}
 
@@ -324,4 +313,29 @@ class Diagnostic {
 		);
 	}
 
+	/**
+	 * Check status from response
+	 *
+	 * @param  array $response given response.
+	 * @return array
+	 */
+	public function check_error_from_response( $response ) {
+		if ( is_wp_error( $response ) ) {
+			$test = false; $message = sprintf( __( "Not a valid url.", 'simply-static' ));
+		} else {
+			$code = $response['response']['code'];
+
+			if ( $code == 200 ) {
+				$test    = true;
+				$message = $code;
+			} else if ( in_array( $code, Page::$processable_status_codes ) ) {
+				$test    = false;
+				$message = sprintf( __( "Received a %s response. This might indicate a problem.", 'simply-static' ), $code );
+			} else {
+				$test    = false;
+				$message = sprintf( __( "Received a %s response.", 'simply-static' ), $code );
+			}
+		}
+		return array( "test" => $test, 'message' => $message );
+	}
 }

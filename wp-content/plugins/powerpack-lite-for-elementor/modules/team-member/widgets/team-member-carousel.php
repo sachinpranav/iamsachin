@@ -29,6 +29,26 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Team_Member_Carousel extends Powerpack_Widget {
 
+	private static $networks_class_dictionary = [
+		'envelope' => [
+			'value' => 'fa fa-envelope',
+		],
+		'phone'    => [
+			'value' => 'fa fa-phone-alt',
+		],
+	];
+
+	private static $networks_icon_mapping = [
+		'envelope' => [
+			'value'   => 'far fa-envelope',
+			'library' => 'fa-regular',
+		],
+		'phone'    => [
+			'value'   => 'fas fa-phone-alt',
+			'library' => 'fa-solid',
+		],
+	];
+
 	/**
 	 * Retrieve team member carousel widget name.
 	 *
@@ -101,9 +121,35 @@ class Team_Member_Carousel extends Powerpack_Widget {
 	 * @return array Widget scripts dependencies.
 	 */
 	public function get_style_depends() {
-		return array(
-			'font-awesome',
-		);
+		if ( Icons_Manager::is_migration_allowed() ) {
+			return [
+				'elementor-icons-fa-regular',
+				'elementor-icons-fa-solid',
+				'elementor-icons-fa-brands',
+			];
+		}
+		return [];
+	}
+
+	private static function get_network_icon_data( $network_name ) {
+		$prefix = 'fa ';
+		$library = '';
+
+		if ( Icons_Manager::is_migration_allowed() ) {
+			if ( isset( self::$networks_icon_mapping[ $network_name ] ) ) {
+				return self::$networks_icon_mapping[ $network_name ];
+			}
+			$prefix = 'fab ';
+			$library = 'fa-brands';
+		}
+		if ( isset( self::$networks_class_dictionary[ $network_name ] ) ) {
+			return self::$networks_class_dictionary[ $network_name ];
+		}
+
+		return [
+			'value' => $prefix . 'fa-' . $network_name,
+			'library' => $library,
+		];
 	}
 
 	/**
@@ -113,7 +159,7 @@ class Team_Member_Carousel extends Powerpack_Widget {
 	 *
 	 * @access protected
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() {
 
 		/*-----------------------------------------------------------------------------------*/
 		/* CONTENT TAB
@@ -333,6 +379,81 @@ class Team_Member_Carousel extends Powerpack_Widget {
 			);
 
 			$repeater->add_control(
+				'flickr_url',
+				array(
+					'label'       => __( 'Flickr', 'powerpack' ),
+					'type'        => Controls_Manager::TEXT,
+					'dynamic'     => array(
+						'active'     => true,
+						'categories' => array(
+							TagsModule::POST_META_CATEGORY,
+						),
+					),
+					'description' => __( 'Enter Flickr profile URL of team member', 'powerpack' ),
+				)
+			);
+
+			$repeater->add_control(
+				'tumblr_url',
+				array(
+					'label'       => __( 'Tumblr', 'powerpack' ),
+					'type'        => Controls_Manager::TEXT,
+					'dynamic'     => array(
+						'active'     => true,
+						'categories' => array(
+							TagsModule::POST_META_CATEGORY,
+						),
+					),
+					'description' => __( 'Enter Tumblr profile URL of team member', 'powerpack' ),
+				)
+			);
+
+			$repeater->add_control(
+				'tiktok_url',
+				array(
+					'label'       => __( 'Tiktok', 'powerpack' ),
+					'type'        => Controls_Manager::TEXT,
+					'dynamic'     => array(
+						'active'     => true,
+						'categories' => array(
+							TagsModule::POST_META_CATEGORY,
+						),
+					),
+					'description' => __( 'Enter Tiktok profile URL of team member', 'powerpack' ),
+				)
+			);
+
+			$repeater->add_control(
+				'github_url',
+				array(
+					'label'       => __( 'Github', 'powerpack' ),
+					'type'        => Controls_Manager::TEXT,
+					'dynamic'     => array(
+						'active'     => true,
+						'categories' => array(
+							TagsModule::POST_META_CATEGORY,
+						),
+					),
+					'description' => __( 'Enter Github profile URL of team member', 'powerpack' ),
+				)
+			);
+
+			$repeater->add_control(
+				'vimeo_url',
+				array(
+					'label'       => __( 'Vimeo', 'powerpack' ),
+					'type'        => Controls_Manager::TEXT,
+					'dynamic'     => array(
+						'active'     => true,
+						'categories' => array(
+							TagsModule::POST_META_CATEGORY,
+						),
+					),
+					'description' => __( 'Enter Vimeo profile URL of team member', 'powerpack' ),
+				)
+			);
+
+			$repeater->add_control(
 				'email',
 				array(
 					'label'       => __( 'Email', 'powerpack' ),
@@ -488,6 +609,41 @@ class Team_Member_Carousel extends Powerpack_Widget {
 		);
 
 		$this->add_control(
+			'social_links_style',
+			[
+				'label'   => __( 'Links Style', 'powerpack' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'icon',
+				'options' => [
+					'icon'   => __( 'Icon', 'powerpack' ),
+					'button' => __( 'Button', 'powerpack' ),
+				],
+				'condition' => array(
+					'member_social_links' => 'yes',
+				),
+			]
+		);
+
+		$this->add_control(
+			'shape',
+			[
+				'label'        => esc_html__( 'Shape', 'powerpack' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'rounded',
+				'options'      => [
+					'rounded' => esc_html__( 'Rounded', 'powerpack' ),
+					'square'  => esc_html__( 'Square', 'powerpack' ),
+					'circle'  => esc_html__( 'Circle', 'powerpack' ),
+				],
+				'prefix_class' => 'elementor-shape-',
+				'condition'    => [
+					'member_social_links' => 'yes',
+					'social_links_style'  => 'button',
+				],
+			]
+		);
+
+		$this->add_control(
 			'overlay_content',
 			array(
 				'label'     => __( 'Overlay Content', 'powerpack' ),
@@ -623,16 +779,34 @@ class Team_Member_Carousel extends Powerpack_Widget {
 		);
 
 		$this->add_control(
+			'pause_on_hover',
+			array(
+				'label'                 => __( 'Pause on Hover', 'powerpack' ),
+				'description'           => '',
+				'type'                  => Controls_Manager::SWITCHER,
+				'default'               => '',
+				'label_on'              => __( 'Yes', 'powerpack' ),
+				'label_off'             => __( 'No', 'powerpack' ),
+				'return_value'          => 'yes',
+				'frontend_available'    => true,
+				'condition'             => array(
+					'autoplay'      => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
 			'pause_on_interaction',
 			array(
-				'label'        => __( 'Pause on Interaction', 'powerpack' ),
-				'description'  => __( 'Disables autoplay completely on first interaction with the carousel.', 'powerpack' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => '',
-				'label_on'     => __( 'Yes', 'powerpack' ),
-				'label_off'    => __( 'No', 'powerpack' ),
-				'return_value' => 'yes',
-				'condition'    => array(
+				'label'              => __( 'Pause on Interaction', 'powerpack' ),
+				'description'        => __( 'Disables autoplay completely on first interaction with the carousel.', 'powerpack' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'default'            => '',
+				'label_on'           => __( 'Yes', 'powerpack' ),
+				'label_off'          => __( 'No', 'powerpack' ),
+				'return_value'       => 'yes',
+				'frontend_available' => true,
+				'condition'          => array(
 					'autoplay' => 'yes',
 				),
 			)
@@ -752,12 +926,7 @@ class Team_Member_Carousel extends Powerpack_Widget {
 
 		$help_docs = PP_Config::get_widget_help_links( 'Team_Member_Carousel' );
 		if ( ! empty( $help_docs ) ) {
-			/**
-			 * Content Tab: Docs Links
-			 *
-			 * @since 2.4.1
-			 * @access protected
-			 */
+
 			$this->start_controls_section(
 				'section_help_docs',
 				array(
@@ -805,15 +974,15 @@ class Team_Member_Carousel extends Powerpack_Widget {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => 'center',
@@ -986,15 +1155,15 @@ class Team_Member_Carousel extends Powerpack_Widget {
 				'options'   => array(
 					'left'   => array(
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					),
 				),
 				'default'   => '',
@@ -1811,13 +1980,54 @@ class Team_Member_Carousel extends Powerpack_Widget {
 			)
 		);
 
+		$this->add_control(
+			'member_icon_color',
+			[
+				'label'     => esc_html__( 'Color', 'powerpack' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'default',
+				'options'   => [
+					'default' => esc_html__( 'Official Color', 'powerpack' ),
+					'custom'  => esc_html__( 'Custom', 'powerpack' ),
+				],
+				'condition' => [
+					'social_links_style' => 'button',
+				],
+			]
+		);
+
 		$this->start_controls_tabs( 'tabs_links_style' );
 
 		$this->start_controls_tab(
 			'tab_links_normal',
-			array(
-				'label' => __( 'Normal', 'powerpack' ),
-			)
+			[
+				'label'      => __( 'Normal', 'powerpack' ),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'     => 'social_links_style',
+							'operator' => '===',
+							'value'    => 'icon',
+						),
+						array(
+							'relation' => 'and',
+							'terms'    => array(
+								array(
+									'name'     => 'social_links_style',
+									'operator' => '===',
+									'value'    => 'button',
+								),
+								array(
+									'name'     => 'member_icon_color',
+									'operator' => '==',
+									'value'    => 'custom',
+								),
+							),
+						),
+					),
+				),
+			]
 		);
 
 		$this->add_control(
@@ -1827,7 +2037,32 @@ class Team_Member_Carousel extends Powerpack_Widget {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon' => 'color: {{VALUE}}; fill: {{VALUE}};',
+				),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'     => 'social_links_style',
+							'operator' => '===',
+							'value'    => 'icon',
+						),
+						array(
+							'relation' => 'and',
+							'terms'    => array(
+								array(
+									'name'     => 'social_links_style',
+									'operator' => '===',
+									'value'    => 'button',
+								),
+								array(
+									'name'     => 'member_icon_color',
+									'operator' => '==',
+									'value'    => 'custom',
+								),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -1840,6 +2075,31 @@ class Team_Member_Carousel extends Powerpack_Widget {
 				'default'   => '',
 				'selectors' => array(
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap' => 'background-color: {{VALUE}};',
+				),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'     => 'social_links_style',
+							'operator' => '===',
+							'value'    => 'icon',
+						),
+						array(
+							'relation' => 'and',
+							'terms'    => array(
+								array(
+									'name'     => 'social_links_style',
+									'operator' => '===',
+									'value'    => 'button',
+								),
+								array(
+									'name'     => 'member_icon_color',
+									'operator' => '==',
+									'value'    => 'custom',
+								),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -1886,7 +2146,32 @@ class Team_Member_Carousel extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_links_hover',
 			array(
-				'label' => __( 'Hover', 'powerpack' ),
+				'label'      => __( 'Hover', 'powerpack' ),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'     => 'social_links_style',
+							'operator' => '===',
+							'value'    => 'icon',
+						),
+						array(
+							'relation' => 'and',
+							'terms'    => array(
+								array(
+									'name'     => 'social_links_style',
+									'operator' => '===',
+									'value'    => 'button',
+								),
+								array(
+									'name'     => 'member_icon_color',
+									'operator' => '==',
+									'value'    => 'custom',
+								),
+							),
+						),
+					),
+				),
 			)
 		);
 
@@ -1897,7 +2182,32 @@ class Team_Member_Carousel extends Powerpack_Widget {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap:hover .pp-tm-social-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap:hover .pp-tm-social-icon' => 'color: {{VALUE}}; fill: {{VALUE}};',
+				),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'     => 'social_links_style',
+							'operator' => '===',
+							'value'    => 'icon',
+						),
+						array(
+							'relation' => 'and',
+							'terms'    => array(
+								array(
+									'name'     => 'social_links_style',
+									'operator' => '===',
+									'value'    => 'button',
+								),
+								array(
+									'name'     => 'member_icon_color',
+									'operator' => '==',
+									'value'    => 'custom',
+								),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -1911,6 +2221,31 @@ class Team_Member_Carousel extends Powerpack_Widget {
 				'selectors' => array(
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap:hover' => 'background-color: {{VALUE}};',
 				),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'     => 'social_links_style',
+							'operator' => '===',
+							'value'    => 'icon',
+						),
+						array(
+							'relation' => 'and',
+							'terms'    => array(
+								array(
+									'name'     => 'social_links_style',
+									'operator' => '===',
+									'value'    => 'button',
+								),
+								array(
+									'name'     => 'member_icon_color',
+									'operator' => '==',
+									'value'    => 'custom',
+								),
+							),
+						),
+					),
+				),
 			)
 		);
 
@@ -1922,6 +2257,31 @@ class Team_Member_Carousel extends Powerpack_Widget {
 				'default'   => '',
 				'selectors' => array(
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap:hover' => 'border-color: {{VALUE}};',
+				),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'     => 'social_links_style',
+							'operator' => '===',
+							'value'    => 'icon',
+						),
+						array(
+							'relation' => 'and',
+							'terms'    => array(
+								array(
+									'name'     => 'social_links_style',
+									'operator' => '===',
+									'value'    => 'button',
+								),
+								array(
+									'name'     => 'member_icon_color',
+									'operator' => '==',
+									'value'    => 'custom',
+								),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -2593,28 +2953,20 @@ class Team_Member_Carousel extends Powerpack_Widget {
 
 		$this->add_render_attribute( $member_key, 'class', 'pp-tm-name' );
 
-		if ( 'title' === $item['link_type'] && $item['link']['url'] ) {
-			if ( ! empty( $item['link']['url'] ) ) {
-				$this->add_link_attributes( $link_key, $item['link'] );
-			}
-			$name_html_tag = PP_Helper::validate_html_tag( $settings['name_html_tag'] );
-			?>
-			<<?php echo esc_html( $name_html_tag ); ?> class="pp-tm-name">
-				<a <?php echo wp_kses_post( $this->get_render_attribute_string( $link_key ) ); ?>>
-					<?php echo esc_html( $item['team_member_name'] ); ?>
-				</a>
-			</<?php echo esc_html( $name_html_tag ); ?>>
-			<?php
+		$member_name = $item['team_member_name'];
 
-		} else {
-			$name_html_tag = PP_Helper::validate_html_tag( $settings['name_html_tag'] );
-			?>
-			<<?php echo esc_html( $name_html_tag ); ?> class="pp-tm-name">
-					<?php echo esc_html( $item['team_member_name'] ); ?>
-			</<?php echo esc_html( $name_html_tag ); ?>>
-			<?php
+		if ( 'title' === $item['link_type'] && ! empty( $item['link']['url'] ) ) {
+			$this->add_link_attributes( $link_key, $item['link'] );
+
+			$member_name = '<a ' . $this->get_render_attribute_string( $link_key ) . '>' . $member_name . '</a>';
 		}
+
+		$name_html_tag = PP_Helper::validate_html_tag( $settings['name_html_tag'] );
 		?>
+		<<?php echo esc_html( $name_html_tag ); ?> <?php echo wp_kses_post( $this->get_render_attribute_string( $member_key ) ); ?>>
+			<?php echo wp_kses_post( $member_name ); ?>
+		</<?php echo esc_html( $name_html_tag ); ?>>
+
 		<?php if ( 'yes' === $settings['member_title_divider'] ) { ?>
 			<div class="pp-tm-title-divider-wrap">
 				<div class="pp-tm-divider pp-tm-title-divider"></div>
@@ -2630,7 +2982,7 @@ class Team_Member_Carousel extends Powerpack_Widget {
 			$position_html_tag = PP_Helper::validate_html_tag( $settings['position_html_tag'] );
 			?>
 			<<?php echo esc_html( $position_html_tag ); ?> class="pp-tm-position">
-				<?php echo esc_html( $item['team_member_position'] ); ?>
+				<?php echo wp_kses_post( $item['team_member_position'] ); ?>
 			</<?php echo esc_html( $position_html_tag ); ?>>
 			<?php
 		}
@@ -2659,7 +3011,22 @@ class Team_Member_Carousel extends Powerpack_Widget {
 		}
 	}
 
+	private static function render_share_icon( $network_name ) {
+		$network_icon_data = self::get_network_icon_data( $network_name );
+
+		if ( \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_font_icon_svg' ) ) {
+			$icon = Icons_Manager::render_font_icon( $network_icon_data );
+		} else {
+			$icon = sprintf( '<i class="%s" aria-hidden="true"></i>', $network_icon_data['value'] );
+		}
+
+		$icon = '<span class="pp-tm-social-icon pp-icon">' . $icon . '</span>';
+
+		\Elementor\Utils::print_unescaped_internal_string( $icon );
+	}
+
 	private function member_social_links( $item ) {
+		$settings = $this->get_settings_for_display();
 		$social_links = array();
 
 		( $item['facebook_url'] ) ? $social_links['facebook']   = $item['facebook_url'] : '';
@@ -2669,46 +3036,51 @@ class Team_Member_Carousel extends Powerpack_Widget {
 		( $item['youtube_url'] ) ? $social_links['youtube']     = $item['youtube_url'] : '';
 		( $item['pinterest_url'] ) ? $social_links['pinterest'] = $item['pinterest_url'] : '';
 		( $item['dribbble_url'] ) ? $social_links['dribbble']   = $item['dribbble_url'] : '';
+		( $item['flickr_url'] ) ? $social_links['flickr']       = $item['flickr_url'] : '';
+		( $item['tumblr_url'] ) ? $social_links['tumblr']       = $item['tumblr_url'] : '';
+		( $item['tiktok_url'] ) ? $social_links['tiktok']       = $item['tiktok_url'] : '';
+		( $item['github_url'] ) ? $social_links['github']       = $item['github_url'] : '';
+		( $item['vimeo_url'] ) ? $social_links['vimeo']         = $item['vimeo_url'] : '';
 		( $item['email'] ) ? $social_links['envelope']          = $item['email'] : '';
-		( $item['phone'] ) ? $social_links['phone-alt']         = $item['phone'] : '';
+		( $item['phone'] ) ? $social_links['phone']             = $item['phone'] : '';
 		?>
 		<div class="pp-tm-social-links-wrap">
 			<ul class="pp-tm-social-links">
 				<?php
+				$i = 0;
 				foreach ( $social_links as $icon_id => $icon_url ) {
-					if ( $icon_url ) {
-						if ( 'envelope' === $icon_id ) {
-							?>
-							<li>
-								<a href="mailto:<?php echo sanitize_email( $icon_url ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
-									<span class="pp-tm-social-icon-wrap">
-										<span class="pp-tm-social-icon far fa fa-<?php echo esc_attr( $icon_id ); ?>"></span>
-									</span>
-								</a>
-							</li>
-							<?php
-						} elseif ( 'phone-alt' === $icon_id ) {
-							?>
-							<li>
-								<a href="tel:<?php echo esc_attr( $icon_url ); ?>">
-									<span class="pp-tm-social-icon-wrap">
-										<span class="pp-tm-social-icon fas fa fa-<?php echo esc_attr( $icon_id ); ?> fa-phone"></span>
-									</span>
-								</a>
-							</li>
-							<?php
-						} else {
-							?>
-							<li>
-								<a href="<?php echo esc_url( $icon_url ); ?>">
-									<span class="pp-tm-social-icon-wrap">
-										<span class="pp-tm-social-icon fab fa fa-<?php echo esc_attr( $icon_id ); ?>"></span>
-									</span>
-								</a>
-							</li>
-							<?php
-						}
+					$network_name = $icon_id;
+
+					$icon_wrap_key = 'icon_wrap' . $i;
+					$this->add_render_attribute( $icon_wrap_key, 'class', 'pp-tm-social-icon-wrap' );
+
+					if ( 'button' === $settings['social_links_style'] ) {
+						$this->add_render_attribute( $icon_wrap_key, 'class', [
+							'elementor-icon',
+							'elementor-social-icon',
+							'elementor-social-icon-' . $network_name,
+						] );
 					}
+
+					if ( $icon_url ) {
+						$social_link_url = esc_url( $icon_url );
+
+						if ( 'envelope' === $icon_id ) {
+							$social_link_url = "mailto:" . sanitize_email( $icon_url );
+						} elseif ( 'phone' === $icon_id ) {
+							$social_link_url = "tel:" . esc_attr( $icon_url );
+						}
+						?>
+						<li>
+							<a href="<?php echo $social_link_url; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+								<span <?php echo wp_kses_post( $this->get_render_attribute_string( $icon_wrap_key ) ); ?>>
+									<?php self::render_share_icon( $network_name ); ?>
+								</span>
+							</a>
+						</li>
+						<?php	
+					}
+					$i++;
 				}
 				?>
 			</ul>
@@ -2742,52 +3114,7 @@ class Team_Member_Carousel extends Powerpack_Widget {
 	 * @access protected
 	 */
 	protected function render_arrows() {
-		$settings = $this->get_settings_for_display();
-
-		$migration_allowed = Icons_Manager::is_migration_allowed();
-
-		if ( ! isset( $settings['arrow'] ) && ! Icons_Manager::is_migration_allowed() ) {
-			// add old default.
-			$settings['arrow'] = 'fa fa-angle-right';
-		}
-
-		$has_icon = ! empty( $settings['arrow'] );
-
-		if ( ! $has_icon && ! empty( $settings['select_arrow']['value'] ) ) {
-			$has_icon = true;
-		}
-
-		$migrated = isset( $settings['__fa4_migrated']['select_arrow'] );
-		$is_new = ! isset( $settings['arrow'] ) && $migration_allowed;
-
-		if ( 'yes' === $settings['arrows'] ) {
-			?>
-			<?php
-			if ( $has_icon ) {
-				if ( $is_new || $migrated ) {
-					$next_arrow = str_replace( 'left', 'right', $settings['select_arrow']['value'] );
-					$prev_arrow = str_replace( 'right', 'left', $settings['select_arrow']['value'] );
-				} else {
-					$next_arrow = $settings['arrow'];
-					$prev_arrow = str_replace( 'right', 'left', $settings['arrow'] );
-				}
-			} else {
-				$next_arrow = 'fa fa-angle-right';
-				$prev_arrow = 'fa fa-angle-left';
-			}
-			?>
-
-			<?php if ( ! empty( $settings['arrow'] ) || ( ! empty( $settings['select_arrow']['value'] ) && $is_new ) ) { ?>
-				<!-- Add Arrows -->
-				<div class="swiper-button-prev swiper-button-prev-<?php echo esc_attr( $this->get_id() ); ?>">
-					<i aria-hidden="true" class="<?php echo esc_attr( $prev_arrow ); ?>"></i>
-				</div>
-				<div class="swiper-button-next swiper-button-next-<?php echo esc_attr( $this->get_id() ); ?>">
-					<i aria-hidden="true" class="<?php echo esc_attr( $next_arrow ); ?>"></i>
-				</div>
-			<?php } ?>
-			<?php
-		}
+		PP_Helper::render_arrows( $this );
 	}
 
 	/**
@@ -2798,7 +3125,7 @@ class Team_Member_Carousel extends Powerpack_Widget {
 	 * @since 2.4.1
 	 * @access protected
 	 */
-	protected function content_template() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function content_template() {
 		$elementor_bp_tablet = get_option( 'elementor_viewport_lg' );
 		$elementor_bp_mobile = get_option( 'elementor_viewport_md' );
 		$elementor_bp_lg     = get_option( 'elementor_viewport_lg' );
@@ -2811,82 +3138,98 @@ class Team_Member_Carousel extends Powerpack_Widget {
 		<#
 			var i = 1;
 
-			function member_social_links_template( item ) {
-				var facebook_url       = item.facebook_url,
-					twitter_url        = item.twitter_url,
-					linkedin_url       = item.linkedin_url,
-					instagram_url      = item.instagram_url,
-					youtube_url        = item.youtube_url,
-					pinterest_url      = item.pinterest_url,
-					dribbble_url       = item.dribbble_url;
-					email              = item.email;
-					phone              = item.phone;
-				#>
+			function get_social_icon_obj( icon ) {
+				if ( icon == 'email' ) {
+					var iconObj = { value:"far fa-envelope", library:"fa-regular" };
+				} else if ( icon == 'phone' ) {
+					var iconObj = { value:"fas fa-phone-alt", library:"fa-solid" };
+				} else {
+					var iconObj = { value:"fab fa-" + icon, library:"fa-brands" };
+				}
+
+				return iconObj;
+			}
+
+			function render_social_icon_html( item, index, icon ) {
+				var icon_url_var = `${icon}_url`,
+					icon_url = item[icon_url_var],
+					social = icon;
+
+				if ( icon == 'email' || icon == 'phone' ) {
+					icon_url = item[icon];
+				}
+
+				if ( icon_url ) { #>
+					<li>
+						<#
+						var url = icon_url,
+							social_icon = "fab fa-{{ icon }}";
+
+						if ( icon == 'email' ) {
+							url = "mailto:" + icon_url;
+							social_icon = "far fa-envelope";
+						} else if ( icon == 'phone' ) {
+							url = "tel:" + icon_url;
+							social_icon = "fas fa-phone-alt";
+						}
+
+						var iconWrapKey = view.getRepeaterSettingKey( 'text', 'icon_wrap', index );
+						view.addRenderAttribute( iconWrapKey, 'class', 'pp-tm-social-icon-wrap' );
+
+						if ( 'email' == icon ) {
+							social = 'envelope';
+						}
+
+						if ( 'button' == settings.social_links_style ) {
+							view.addRenderAttribute( iconWrapKey, 'class', [
+								'elementor-icon',
+								'elementor-social-icon',
+								'elementor-social-icon-' + social,
+							] );
+						}
+						#>
+						<a href="{{ url }}">
+							<span {{{ view.getRenderAttributeString( iconWrapKey ) }}}>
+								<#
+								var iconObj = get_social_icon_obj( icon );
+								var iconHTML = elementor.helpers.renderIcon( view, iconObj, { 'aria-hidden': true, 'class': 'pp-tm-social-icon' }, 'i' , 'object' );
+								#>
+								<# if ( iconHTML && iconHTML.rendered ) { #>
+									{{{ iconHTML.value }}}
+								<# } else { #>
+									<span class="pp-tm-social-icon {{ social_icon }}"></span>
+								<# } #>
+							</span>
+						</a>
+					</li>
+				<# }
+			}
+
+			function member_social_links_template( item ) { #>
 				<div class="pp-tm-social-links-wrap">
 					<ul class="pp-tm-social-links">
-						<# if ( facebook_url ) { #>
-							<li>
-								<a href="{{ facebook_url }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon fab fa fa-facebook"></span></span>
-								</a>
-							</li>
-						<# } #>
-						<# if ( twitter_url ) { #>
-							<li>
-								<a href="{{ twitter_url }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon fab fa fa-twitter"></span></span>
-								</a>
-							</li>
-						<# } #>
-						<# if ( instagram_url ) { #>
-							<li>
-								<a href="{{ instagram_url }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon fab fa fa-instagram"></span></span>
-								</a>
-							</li>
-						<# } #>
-						<# if ( linkedin_url ) { #>
-							<li>
-								<a href="{{ linkedin_url }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon fab fa fa-linkedin"></span></span>
-								</a>
-							</li>
-						<# } #>
-						<# if ( youtube_url ) { #>
-							<li>
-								<a href="{{ youtube_url }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon fab fa fa-youtube"></span></span>
-								</a>
-							</li>
-						<# } #>
-						<# if ( pinterest_url ) { #>
-							<li>
-								<a href="{{ pinterest_url }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon fab fa fa-pinterest"></span></span>
-								</a>
-							</li>
-						<# } #>
-						<# if ( dribbble_url ) { #>
-							<li>
-								<a href="{{ dribbble_url }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon fab fa fa-dribbble"></span></span>
-								</a>
-							</li>
-						<# } #>
-						<# if ( email ) { #>
-							<li>
-								<a href="mailto:{{ email }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon far fa fa-envelope"></span></span>
-								</a>
-							</li>
-						<# } #>
-						<# if ( phone ) { #>
-							<li>
-								<a href="tel:{{ phone }}">
-									<span class="pp-tm-social-icon-wrap"><span class="pp-tm-social-icon fas fa fa-phone-alt fa-phone"></span></span>
-								</a>
-							</li>
-						<# } #>
+						<#
+						var social_links = [
+							'facebook',
+							'twitter',
+							'instagram',
+							'linkedin',
+							'youtube',
+							'pinterest',
+							'dribbble',
+							'flickr',
+							'tumblr',
+							'tiktok',
+							'github',
+							'vimeo',
+							'email',
+							'phone',
+						];
+
+						for ( var i = 0; i < social_links.length; i++ ) {
+							render_social_icon_html( item, i, social_links[i] );
+						}
+						#>
 					</ul>
 				</div>
 				<#
@@ -2899,9 +3242,8 @@ class Team_Member_Carousel extends Powerpack_Widget {
 					view.addRenderAttribute( 'team_member_name', 'class', 'pp-tm-name' );
 
 					if ( item.link_type == 'title' && item.link.url != '' ) {
-
-						var target = item.link.is_external ? ' target="_blank"' : '';
-						var nofollow = item.link.nofollow ? ' rel="nofollow"' : '';
+						var target = item.link.is_external ? ' target="_blank"' : '',
+							nofollow = item.link.nofollow ? ' rel="nofollow"' : '';
 				   
 						var name = '<a href="' + item.link.url + '" ' + target + '>' + name + '</a>';
 					}
@@ -2985,10 +3327,10 @@ class Team_Member_Carousel extends Powerpack_Widget {
 							var pp_prev_arrow = 'fa fa-angle-left';
 						}
 						#>
-						<div class="swiper-button-next">
+						<div class="pp-slider-arrow swiper-button-next">
 							<i class="{{ pp_next_arrow }}"></i>
 						</div>
-						<div class="swiper-button-prev">
+						<div class="pp-slider-arrow swiper-button-prev">
 							<i class="{{ pp_prev_arrow }}"></i>
 						</div>
 						<#

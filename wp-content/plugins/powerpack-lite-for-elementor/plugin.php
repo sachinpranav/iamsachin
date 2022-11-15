@@ -135,7 +135,7 @@ class PowerpackLitePlugin {
 
 		wp_enqueue_style(
 			'powerpack-frontend',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/css/frontend.css',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend' . $suffix . '.css',
 			[],
 			POWERPACK_ELEMENTS_LITE_VER
 		);
@@ -149,7 +149,7 @@ class PowerpackLitePlugin {
 
 		wp_register_style(
 			'pp-twentytwenty',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/twentytwenty/twentytwenty.css',
+			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/twentytwenty/twentytwenty' . $suffix . '.css',
 			[],
 			POWERPACK_ELEMENTS_LITE_VER
 		);
@@ -161,7 +161,7 @@ class PowerpackLitePlugin {
 			POWERPACK_ELEMENTS_LITE_VER
 		);
 
-		if ( class_exists( 'GFCommon' && \Elementor\Plugin::$instance->preview->is_preview_mode() && PP_Helper::is_widget_active( 'Gravity_Forms' ) ) ) {
+		if ( class_exists( 'GFCommon' ) && \Elementor\Plugin::$instance->preview->is_preview_mode() && PP_Helper::is_widget_active( 'Gravity_Forms' ) ) {
 			$gf_forms = \RGFormsModel::get_forms( null, 'title' );
 			foreach ( $gf_forms as $form ) {
 				if ( '0' !== $form->id ) {
@@ -185,7 +185,8 @@ class PowerpackLitePlugin {
 	 */
 	public function enqueue_frontend_scripts() {
 		$settings = \PowerpackElementsLite\Classes\PP_Admin_Settings::get_settings();
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$suffix = ( PP_Helper::is_script_debug() ) ? '' : '.min';
+		$path = ( PP_Helper::is_script_debug() ) ? 'assets/js/' : 'assets/js/min/';
 
 		wp_register_script(
 			'isotope',
@@ -198,8 +199,8 @@ class PowerpackLitePlugin {
 		);
 
 		wp_register_script(
-			'pp-twentytwenty',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/twentytwenty/jquery.twentytwenty.js',
+			'twentytwenty',
+			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/twentytwenty/jquery.twentytwenty' . $suffix . '.js',
 			[
 				'jquery',
 			],
@@ -249,7 +250,7 @@ class PowerpackLitePlugin {
 
 		wp_register_script(
 			'twitter-widgets',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/js/twitter-widgets.js',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'twitter-widgets' . $suffix . '.js',
 			[
 				'jquery',
 			],
@@ -269,7 +270,7 @@ class PowerpackLitePlugin {
 
 		wp_register_script(
 			'powerpack-pp-posts',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/js/pp-posts.js',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'pp-posts' . $suffix . '.js',
 			[
 				'jquery',
 			],
@@ -298,11 +299,21 @@ class PowerpackLitePlugin {
 
 		wp_register_script(
 			'powerpack-frontend',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/js/frontend.js',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend' . $suffix . '.js',
 			[
 				'jquery',
 			],
 			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_register_script(
+			'pp-animated-gradient-bg',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'pp-gradient-bg-animation' . $suffix . '.js',
+			array(
+				'jquery',
+			),
+			'1.0.0',
 			true
 		);
 
@@ -407,20 +418,36 @@ class PowerpackLitePlugin {
 		require POWERPACK_ELEMENTS_LITE_PATH . 'includes/controls/query.php';
 
 		// Register Controls
-		\Elementor\Plugin::instance()->controls_manager->register_control( 'pp-query', new Control_Query() );
+		//\Elementor\Plugin::instance()->controls_manager->register_control( 'pp-query', new Control_Query() );
+
+		if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
+			\Elementor\Plugin::instance()->controls_manager->register( new Control_Query() );
+		} else {
+			\Elementor\Plugin::instance()->controls_manager->register_control( 'pp-query', new Control_Query() );
+		}
 	}
 
 	public function elementor_init() {
 		$this->modules_manager = new Modules_Manager();
 		$this->_extensions_manager = new Extensions_Manager();
+	}
 
+	/**
+	 * Register Elementor widget category
+	 *
+	 * @since 2.6.7
+	 * @access public
+	 *
+	 * @param ElementorElements_Manager $manager Elements manager.
+	 */
+	public function register_category( $manager ) {
 		// Add element category in panel
-		\Elementor\Plugin::instance()->elements_manager->add_category(
+		$manager->add_category(
 			'powerpack-elements', // This is the name of your addon's category and will be used to group your widgets/elements in the Edit sidebar pane!
-			[
+			array(
 				'title' => __( 'PowerPack Elements', 'powerpack' ), // The title of your modules category - keep it simple and short!
-				'icon' => 'font',
-			],
+				'icon'  => 'font',
+			),
 			1
 		);
 	}
@@ -448,8 +475,14 @@ class PowerpackLitePlugin {
 
 	protected function add_actions() {
 		add_action( 'elementor/init', [ $this, 'elementor_init' ] );
+		add_action( 'elementor/elements/categories_registered', array( $this, 'register_category' ) );
 
-		add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
+		//add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
+		if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
+		    add_action( 'elementor/controls/register', array( $this, 'register_controls' ) );
+	    } else {
+		    add_action('elementor/controls/controls_registered', array( $this, 'register_controls' ) );
+	    }
 		add_action( 'elementor/controls/controls_registered', [ $this, 'include_group_controls' ] );
 
 		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );

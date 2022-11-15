@@ -72,7 +72,7 @@ class Buttons extends Powerpack_Widget {
 	}
 
 	/**
-	 * Retrieve the list of scripts the advanced menu widget depended on.
+	 * Retrieve the list of scripts the buttons widget depended on.
 	 *
 	 * Used to set scripts dependencies required to run the widget.
 	 *
@@ -85,16 +85,6 @@ class Buttons extends Powerpack_Widget {
 			'pp-tooltipster',
 			'powerpack-frontend',
 		];
-	}
-	/**
-	 * Register buttons widget controls.
-	 *
-	 * Adds different input fields to allow the user to change and customize the widget settings.
-	 *
-	 * @access protected
-	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-		$this->register_controls();
 	}
 
 	/**
@@ -152,21 +142,21 @@ class Buttons extends Powerpack_Widget {
 					'toggle'            => false,
 					'default'           => 'icon',
 					'options'           => [
-						'none' => [
+						'none'  => [
 							'title' => esc_html__( 'None', 'powerpack' ),
-							'icon'  => 'fa fa-ban',
+							'icon'  => 'eicon-ban',
 						],
-						'icon' => [
+						'icon'  => [
 							'title' => esc_html__( 'Icon', 'powerpack' ),
-							'icon'  => 'fa fa-star',
+							'icon'  => 'eicon-star',
 						],
 						'image' => [
 							'title' => esc_html__( 'Image', 'powerpack' ),
-							'icon'  => 'fa fa-picture-o',
+							'icon'  => 'eicon-image-bold',
 						],
-						'text' => [
+						'text'  => [
 							'title' => esc_html__( 'Text', 'powerpack' ),
-							'icon'  => 'fa fa-hashtag',
+							'icon'  => 'eicon-font',
 						],
 					],
 				]
@@ -1060,17 +1050,17 @@ class Buttons extends Powerpack_Widget {
 					'type'      => Controls_Manager::CHOOSE,
 					'default'   => ' center',
 					'options'   => [
-						'left'  => [
-							'title'     => __( 'Left', 'powerpack' ),
-							'icon'      => 'fa fa-align-left',
+						'left'      => [
+							'title' => __( 'Left', 'powerpack' ),
+							'icon'  => 'eicon-text-align-left',
 						],
 						'center'    => [
 							'title' => __( 'Center', 'powerpack' ),
-							'icon'  => 'fa fa-align-center',
+							'icon'  => 'eicon-text-align-center',
 						],
 						'right'     => [
 							'title' => __( 'Right', 'powerpack' ),
-							'icon'  => 'fa fa-align-right',
+							'icon'  => 'eicon-text-align-right',
 						],
 					],
 					'selectors' => [
@@ -1195,13 +1185,13 @@ class Buttons extends Powerpack_Widget {
 
 				// Icon Position
 				$icon_position = '';
-				if ( $settings['icon_position'] ) {
+				if ( isset( $settings['icon_position'] ) && $settings['icon_position'] ) {
 					$icon_position = 'pp-icon-' . $settings['icon_position'];
 				}
-				if ( $settings['icon_position_tablet'] ) {
+				if ( isset( $settings['icon_position_tablet'] ) && $settings['icon_position_tablet'] ) {
 					$icon_position .= ' pp-icon-' . $settings['icon_position_tablet'] . '-tablet';
 				}
-				if ( $settings['icon_position_mobile'] ) {
+				if ( isset( $settings['icon_position_mobile'] ) && $settings['icon_position_mobile'] ) {
 					$icon_position .= ' pp-icon-' . $settings['icon_position_mobile'] . '-mobile';
 				}
 
@@ -1237,13 +1227,13 @@ class Buttons extends Powerpack_Widget {
 						)
 					);
 
-					if ( $settings['tooltips_position_tablet'] ) {
+					if ( isset( $settings['tooltips_position_tablet'] ) && $settings['tooltips_position_tablet'] ) {
 						$ttip_tablet = $ttip_position_tablet;
 					} else {
 						$ttip_tablet = $ttip_position;
 					};
 
-					if ( $settings['tooltips_position_mobile'] ) {
+					if ( isset( $settings['tooltips_position_mobile'] ) && $settings['tooltips_position_mobile'] ) {
 						$ttip_mobile = $ttip_position_mobile;
 					} else {
 						$ttip_mobile = $ttip_position;

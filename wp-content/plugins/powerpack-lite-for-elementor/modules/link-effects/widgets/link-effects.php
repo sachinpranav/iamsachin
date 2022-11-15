@@ -2,6 +2,7 @@
 namespace PowerpackElementsLite\Modules\LinkEffects\Widgets;
 
 use PowerpackElementsLite\Base\Powerpack_Widget;
+use PowerpackElementsLite\Classes\PP_Helper;
 use PowerpackElementsLite\Classes\PP_Config;
 
 // Elementor Classes
@@ -68,17 +69,6 @@ class Link_Effects extends Powerpack_Widget {
 	 */
 	public function get_keywords() {
 		return parent::get_widget_keywords( 'Link_Effects' );
-	}
-
-	/**
-	 * Register link effects widget controls.
-	 *
-	 * Adds different input fields to allow the user to change and customize the widget settings.
-	 *
-	 * @access protected
-	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-		$this->register_controls();
 	}
 
 	/**
@@ -175,10 +165,30 @@ class Link_Effects extends Powerpack_Widget {
 					'effect-18' => __( 'Cross', 'powerpack' ),
 					'effect-19' => __( '3D Side', 'powerpack' ),
 					'effect-20' => __( 'Unfold', 'powerpack' ),
-					'effect-21' => __( 'Borders Slight Yranslate', 'powerpack' ),
+					'effect-21' => __( 'Borders Slight Translate', 'powerpack' ),
 				],
 				'default'               => 'effect-1',
 			]
+		);
+
+		$this->add_control(
+			'html_tag',
+			array(
+				'label'   => __( 'HTML Tag', 'powerpack' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'div',
+				'options' => array(
+					'h1'   => __( 'H1', 'powerpack' ),
+					'h2'   => __( 'H2', 'powerpack' ),
+					'h3'   => __( 'H3', 'powerpack' ),
+					'h4'   => __( 'H4', 'powerpack' ),
+					'h5'   => __( 'H5', 'powerpack' ),
+					'h6'   => __( 'H6', 'powerpack' ),
+					'div'  => __( 'div', 'powerpack' ),
+					'span' => __( 'span', 'powerpack' ),
+					'p'    => __( 'p', 'powerpack' ),
+				),
+			)
 		);
 
 		$this->add_responsive_control(
@@ -189,19 +199,19 @@ class Link_Effects extends Powerpack_Widget {
 				'options'               => [
 					'left'      => [
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 					'justify'   => [
 						'title' => __( 'Justified', 'powerpack' ),
-						'icon'  => 'fa fa-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
 				'default'               => '',
@@ -443,15 +453,19 @@ class Link_Effects extends Powerpack_Widget {
 				$this->add_render_attribute( 'pp-link-text-2', 'data-hover', wp_strip_all_tags( $link_text ) );
 				break;
 		}
+
+		$title_tag = PP_Helper::validate_html_tag( $settings['html_tag'] );
 		?>
-		<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?> <?php echo wp_kses_post( $this->get_render_attribute_string( 'pp-link-text-2' ) ); ?>>
-			<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'pp-link-text' ) ); ?>>
-				<?php echo wp_kses_post( $link_text ); ?>
-			</span>
-			<?php if ( 'effect-9' === $settings['effect'] ) { ?>
-				<span><?php echo wp_kses_post( $link_secondary_text ); ?></span>
-			<?php } ?>
-		</a>
+		<<?php echo esc_html( $title_tag ); ?> class="pp-link-container">
+			<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?> <?php echo wp_kses_post( $this->get_render_attribute_string( 'pp-link-text-2' ) ); ?>>
+				<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'pp-link-text' ) ); ?>>
+					<?php echo wp_kses_post( $link_text ); ?>
+				</span>
+				<?php if ( 'effect-9' === $settings['effect'] ) { ?>
+					<span><?php echo wp_kses_post( $link_secondary_text ); ?></span>
+				<?php } ?>
+			</a>
+		</<?php echo esc_html( $title_tag ); ?>>
 		<?php
 	}
 
@@ -488,14 +502,16 @@ class Link_Effects extends Powerpack_Widget {
 				break;
 		}
 		#>
-		<a {{{ view.getRenderAttributeString( 'link' ) }}} {{{ link }}}>
-			<span {{{ view.getRenderAttributeString( 'pp-link-text' ) }}}>
-				{{{ settings.text }}}
-			</span>
-			<# if ( 'effect-9' === settings.effect ) { #>
-				<span>{{{ settings.secondary_text }}}</span>
-			<# } #>
-		</a>
+		<{{settings.html_tag}} class="pp-link-container">
+			<a {{{ view.getRenderAttributeString( 'link' ) }}} {{{ link }}}>
+				<span {{{ view.getRenderAttributeString( 'pp-link-text' ) }}}>
+					{{{ settings.text }}}
+				</span>
+				<# if ( 'effect-9' === settings.effect ) { #>
+					<span>{{{ settings.secondary_text }}}</span>
+				<# } #>
+			</a>
+		</{{settings.html_tag}}>
 		<?php
 	}
 }

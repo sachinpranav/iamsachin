@@ -71,17 +71,6 @@ class Business_Hours extends Powerpack_Widget {
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
-	 * @access protected
-	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-		$this->register_controls();
-	}
-
-	/**
-	 * Register countdown widget controls.
-	 *
-	 * Adds different input fields to allow the user to change and customize the widget settings.
-	 *
 	 * @since 2.3.2
 	 * @access protected
 	 */
@@ -347,7 +336,7 @@ class Business_Hours extends Powerpack_Widget {
 			array(
 				'label'   => __( 'Day', 'powerpack' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => 'Monday',
+				'default' => __( 'Monday', 'powerpack' ),
 			)
 		);
 
@@ -444,28 +433,28 @@ class Business_Hours extends Powerpack_Widget {
 				'type'        => Controls_Manager::REPEATER,
 				'default'     => array(
 					array(
-						'day' => 'Monday',
+						'day' => __( 'Monday', 'powerpack' ),
 					),
 					array(
-						'day' => 'Tuesday',
+						'day' => __( 'Tuesday', 'powerpack' ),
 					),
 					array(
-						'day' => 'Wednesday',
+						'day' => __( 'Wednesday', 'powerpack' ),
 					),
 					array(
-						'day' => 'Thursday',
+						'day' => __( 'Thursday', 'powerpack' ),
 					),
 					array(
-						'day' => 'Friday',
+						'day' => __( 'Friday', 'powerpack' ),
 					),
 					array(
-						'day'             => 'Saturday',
+						'day'             => __( 'Saturday', 'powerpack' ),
 						'closed'          => 'yes',
 						'highlight'       => 'yes',
 						'highlight_color' => '#bc1705',
 					),
 					array(
-						'day'             => 'Sunday',
+						'day'             => __( 'Sunday', 'powerpack' ),
 						'closed'          => 'yes',
 						'highlight'       => 'yes',
 						'highlight_color' => '#bc1705',
@@ -903,15 +892,15 @@ class Business_Hours extends Powerpack_Widget {
 				'options'               => [
 					'left'      => [
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'               => 'left',
@@ -960,15 +949,15 @@ class Business_Hours extends Powerpack_Widget {
 				'options'               => [
 					'left'      => [
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'               => 'right',

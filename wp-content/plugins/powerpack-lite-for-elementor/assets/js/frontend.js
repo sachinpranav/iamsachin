@@ -24,6 +24,10 @@
     var isEditMode		= false;
     
     var ppSwiperSliderinit = function (carousel, carouselWrap, elementSettings, sliderOptions) {
+
+		$(carousel).closest('.elementor-widget-wrap').addClass('e-swiper-container');
+		$(carousel).closest('.elementor-widget').addClass('e-widget-swiper');
+
 		if ( 'undefined' === typeof Swiper ) {
 			var asyncSwiper = elementorFrontend.utils.swiper;
 
@@ -103,35 +107,37 @@
     
     var ImageHotspotHandler = function ($scope, $) {
 		var id              = $scope.data('id'),
-			elementSettings = getElementSettings( $scope ),
+			hotspotsWrap    = $scope.find('.pp-image-hotspots'),
+			tooltipOptions  = JSON.parse( hotspotsWrap.attr('data-tooltip-options') ),
 			ppclass         = 'pp-tooltip' + ' pp-tooltip-' + id,
-        	ttArrow         = elementSettings.tooltip_arrow,
-        	ttAlwaysOpen    = elementSettings.tooltip_always_open,
-			ttTrigger       = elementSettings.tooltip_trigger,
-			ttDistance      = elementSettings.distance.size,
-			animation       = elementSettings.tooltip_animation,
-			minWidth        = elementSettings.tooltip_width.size,
-			tooltipSize     = elementSettings.tooltip_size,
-			tooltipZindex   = elementSettings.tooltip_zindex;
+        	ttArrow         = tooltipOptions.arrow,
+        	ttAlwaysOpen    = tooltipOptions.always_open,
+			ttTrigger       = tooltipOptions.trigger,
+			ttDistance      = tooltipOptions.distance,
+			animation       = tooltipOptions.animation,
+			tooltipWidth    = tooltipOptions.width,
+			tooltipSize     = tooltipOptions.size,
+			tooltipZindex   = tooltipOptions.zindex;
 
 		if ( '' !== tooltipSize && undefined !== tooltipSize ) {
 			ppclass += ' pp-tooltip-size-' + tooltipSize;
 		}
 
 		$('.pp-hot-spot-wrap[data-tooltip]').each(function () {
-			var ttPosition   = $(this).data('tooltip-position');
+			var ttPosition = $(this).data('tooltip-position');
 
 			$( this ).pptooltipster({
-				trigger : ttTrigger,
-				animation : animation,
-	        	minWidth: minWidth,
-				ppclass : ppclass,
-				side : ttPosition,
-	        	arrow : ( 'yes' === ttArrow ),
-	        	distance : ttDistance,
-	        	interactive : true,
-	        	positionTracker : true,
-	        	zIndex : tooltipZindex,
+				trigger:         ttTrigger,
+				animation:       animation,
+	        	minWidth:        0,
+	        	maxWidth:        tooltipWidth,
+				ppclass:         ppclass,
+				position:        ttPosition,
+	        	arrow:           ( 'yes' === ttArrow ),
+	        	distance:        ttDistance,
+	        	interactive:     true,
+	        	positionTracker: true,
+	        	zIndex:          tooltipZindex,
 			});
 
 			if ( ttAlwaysOpen === 'yes' ) {
@@ -312,8 +318,14 @@
         // Remove multiple click event for nested accordion
         accordionTitle.unbind('click');
 
-        accordionTitle.click(function(e) {
+        accordionTitle.on( 'click keypress', function(e) {
             e.preventDefault();
+			
+			var validClick = (e.which == 1 || e.which == 13 || e.which == 32 || e.which == undefined) ? true : false;
+
+			if ( ! validClick ) {
+				return;
+			}
 
             var $this = $(this),
 				$item = $this.parent();
@@ -324,6 +336,7 @@
                 if ( $this.hasClass('pp-accordion-tab-show') ) {
                     $this.closest('.pp-accordion-item').removeClass('pp-accordion-item-active');
                     $this.removeClass('pp-accordion-tab-show pp-accordion-tab-active');
+					$this.attr('aria-expanded', 'false');
                     $this.next().slideUp(accordionSpeed);
                 } else {
                     $this.closest('.pp-advanced-accordion').find('.pp-accordion-item').removeClass('pp-accordion-item-active');
@@ -331,7 +344,11 @@
                     $this.closest('.pp-advanced-accordion').find('.pp-accordion-tab-title').removeClass('pp-accordion-tab-active-default');
                     $this.closest('.pp-advanced-accordion').find('.pp-accordion-tab-content').slideUp(accordionSpeed);
                     $this.toggleClass('pp-accordion-tab-show pp-accordion-tab-active');
+					$this.closest('.pp-advanced-accordion').find('.pp-accordion-tab-title').attr('aria-expanded', 'false');
                     $this.closest('.pp-accordion-item').toggleClass('pp-accordion-item-active');
+					if ( $this.hasClass('pp-accordion-tab-title') ) {
+						$this.attr('aria-expanded', 'true');
+					}
                     $this.next().slideToggle(accordionSpeed);
                 }
             } else {
@@ -345,7 +362,32 @@
                 }
 			}
         });
+
+		// Trigger filter by hash parameter in URL.
+		advanced_accordion_hashchange();
+
+		// Trigger filter on hash change in URL.
+		$( window ).on( 'hashchange', function() {
+			advanced_accordion_hashchange();
+		} );
     };
+
+	function advanced_accordion_hashchange() {
+		if ( location.hash && $(location.hash).length > 0 ) {
+			var element = $(location.hash + '.pp-accordion-tab-title');
+
+			if ( element && element.length > 0 ) {
+				location.href = '#';
+				$('html, body').animate({
+					scrollTop: ( element.parents('.pp-accordion-item').offset().top - 50 ) + 'px'
+				}, 500, function() {
+					if ( ! element.parents('.pp-accordion-item').hasClass('pp-accordion-item-active') ) {
+						element.trigger('click');
+					}
+				});
+			}
+		}
+	}
 
 	var PPButtonHandler = function ( $scope ) {
 		var id = $scope.data('id'),
@@ -522,6 +564,10 @@
 				contentWrapper.animate({ height: ( contentOuterHeight + 'px') }, speedUnreveal);
 			} else {
 				contentWrapper.animate({ height: ( contentWrapperHeight + 'px') }, speedUnreveal);
+
+				$('html, body').animate({
+					scrollTop: ( contentWrapper.offset().top - 50 ) + 'px'
+				});
 			}
 		});
     };

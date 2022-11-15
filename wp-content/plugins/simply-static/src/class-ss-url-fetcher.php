@@ -68,6 +68,11 @@ class Url_Fetcher {
 	public function fetch( Page $static_page ) {
 		$url = $static_page->url;
 
+		// Windows support.
+		if ( strpos( $url, '\\' ) !== false || strpos( $url, '\\' ) !== false ) {
+			$url = str_replace( '\\', '/', $url );
+		}
+
 		$static_page->last_checked_at = Util::formatted_datetime();
 
 		// Don't process URLs that don't match the URL of this WordPress installation
@@ -117,6 +122,13 @@ class Url_Fetcher {
 			if ( $relative_filename !== null ) {
 				$static_page->file_path = $relative_filename;
 				$file_path = $this->archive_dir . $relative_filename;
+
+				// Windows support.
+				if ( strpos( $file_path, '\/' ) !== false || strpos( $temp_filename, '\/' ) !== false ) {
+					$file_path     = str_replace( '\/', '/', $file_path );
+					$temp_filename = str_replace( '\/', '/', $temp_filename );
+				}
+
 				Util::debug_log( "Renaming temp file from " . $temp_filename . " to " . $file_path );
 				rename( $temp_filename, $file_path );
 			} else {

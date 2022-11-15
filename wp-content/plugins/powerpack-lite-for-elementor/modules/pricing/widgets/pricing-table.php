@@ -87,10 +87,22 @@ class Pricing_Table extends Powerpack_Widget {
 	 * @return array Widget scripts dependencies.
 	 */
 	public function get_script_depends() {
-		return array(
-			'pp-tooltipster',
-			'powerpack-frontend',
-		);
+
+		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() || \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
+			return array(
+				'pp-tooltipster',
+				'powerpack-frontend',
+			);
+		}
+
+		$settings = $this->get_settings_for_display();
+		$scripts = [];
+
+		if ( 'yes' === $settings['show_tooltip'] ) {
+			array_push( $scripts, 'pp-tooltipster', 'powerpack-frontend' );
+		}
+
+		return $scripts;
 	}
 
 	/**
@@ -98,18 +110,7 @@ class Pricing_Table extends Powerpack_Widget {
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
-	 * @access protected
-	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-		$this->register_controls();
-	}
-
-	/**
-	 * Register pricing table widget controls.
-	 *
-	 * Adds different input fields to allow the user to change and customize the widget settings.
-	 *
-	 * @since 2.2.5
+	 * @since 2.0.3
 	 * @access protected
 	 */
 	protected function register_controls() {
@@ -158,15 +159,15 @@ class Pricing_Table extends Powerpack_Widget {
 				'options'               => [
 					'none'        => [
 						'title'   => esc_html__( 'None', 'powerpack' ),
-						'icon'    => 'fa fa-ban',
+						'icon'    => 'eicon-ban',
 					],
 					'icon'        => [
 						'title'   => esc_html__( 'Icon', 'powerpack' ),
-						'icon'    => 'fa fa-star',
+						'icon'    => 'eicon-star',
 					],
 					'image'       => [
 						'title'   => esc_html__( 'Image', 'powerpack' ),
-						'icon'    => 'fa fa-picture-o',
+						'icon'    => 'eicon-image-bold',
 					],
 				],
 				'default'               => 'none',
@@ -419,6 +420,15 @@ class Pricing_Table extends Powerpack_Widget {
 
 		$repeater = new Repeater();
 
+		$repeater->start_controls_tabs( 'tabs_features_content' );
+
+		$repeater->start_controls_tab(
+			'tab_features_content',
+			[
+				'label' => __( 'Content', 'powerpack' ),
+			]
+		);
+
 		$repeater->add_control(
 			'feature_text',
 			array(
@@ -446,18 +456,6 @@ class Pricing_Table extends Powerpack_Widget {
 		);
 
 		$repeater->add_control(
-			'tooltip_content',
-			array(
-				'label'       => __( 'Tooltip Content', 'powerpack' ),
-				'type'        => Controls_Manager::WYSIWYG,
-				'default'     => __( 'This is a tooltip', 'powerpack' ),
-				'dynamic'     => array(
-					'active' => true,
-				),
-			)
-		);
-
-		$repeater->add_control(
 			'select_feature_icon',
 			array(
 				'label'            => __( 'Icon', 'powerpack' ),
@@ -469,6 +467,36 @@ class Pricing_Table extends Powerpack_Widget {
 				),
 				'fa4compatibility' => 'feature_icon',
 			)
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->start_controls_tab(
+			'tab_features_tooltip',
+			[
+				'label' => __( 'Tooltip', 'powerpack' ),
+			]
+		);
+
+		$repeater->add_control(
+			'tooltip_content',
+			array(
+				'label'       => __( 'Tooltip Content', 'powerpack' ),
+				'type'        => Controls_Manager::WYSIWYG,
+				'default'     => __( 'This is a tooltip', 'powerpack' ),
+				'dynamic'     => array(
+					'active' => true,
+				),
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->start_controls_tab(
+			'tab_features_style',
+			[
+				'label' => __( 'Style', 'powerpack' ),
+			]
 		);
 
 		$repeater->add_control(
@@ -511,6 +539,10 @@ class Pricing_Table extends Powerpack_Widget {
 				),
 			)
 		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->end_controls_tabs();
 
 		$this->add_control(
 			'table_features',
@@ -576,7 +608,7 @@ class Pricing_Table extends Powerpack_Widget {
 					'click' => __( 'Click', 'powerpack' ),
 				),
 				'frontend_available' => true,
-				'condition' => [
+				'condition'          => [
 					'show_tooltip' => 'yes',
 				],
 			]
@@ -650,6 +682,9 @@ class Pricing_Table extends Powerpack_Widget {
 					'swing' => __( 'Swing', 'powerpack' ),
 				),
 				'frontend_available' => true,
+				'condition' => [
+					'show_tooltip' => 'yes',
+				],
 			)
 		);
 
@@ -814,6 +849,9 @@ class Pricing_Table extends Powerpack_Widget {
 				'min'                => -9999999,
 				'step'               => 1,
 				'frontend_available' => true,
+				'condition'          => [
+					'show_tooltip' => 'yes',
+				],
 			)
 		);
 
@@ -1114,15 +1152,15 @@ class Pricing_Table extends Powerpack_Widget {
 				'options'               => [
 					'left'      => [
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'               => '',
@@ -1245,8 +1283,8 @@ class Pricing_Table extends Powerpack_Widget {
 				],
 				'size_units'            => [ 'px', '%' ],
 				'condition'             => [
-					'icon_type'   => 'image',
-					'icon_image!' => '',
+					'icon_type'        => 'image',
+					'icon_image[url]!' => '',
 				],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-pricing-table-icon' => 'width: {{SIZE}}{{UNIT}}',
@@ -1793,15 +1831,15 @@ class Pricing_Table extends Powerpack_Widget {
 				'options'               => [
 					'left'      => [
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'               => '',
@@ -2313,6 +2351,28 @@ class Pricing_Table extends Powerpack_Widget {
 					'tooltip_display_on' => 'icon',
 				],
 			]
+		);
+
+		$this->add_responsive_control(
+			'tooltip_icon_spacing',
+			array(
+				'label'      => __( 'Icon Spacing', 'powerpack' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 100,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .pp-table-cell .pp-table-tooltip-icon' => 'margin-left: {{SIZE}}px;',
+				),
+				'condition'  => [
+					'show_tooltip'       => 'yes',
+					'tooltip_display_on' => 'icon',
+				],
+			)
 		);
 
 		$this->end_controls_section();
@@ -3053,7 +3113,7 @@ class Pricing_Table extends Powerpack_Widget {
 						$this->add_render_attribute( $feature_content_key, 'class', 'pp-pricing-table-feature-content' );
 
 						$tooltip_icon_key = $this->get_repeater_setting_key( 'tooltip_icon_key', 'table_features', $index );
-						$this->add_render_attribute( $tooltip_icon_key, 'class', 'pp-pricing-table-tooltip-icon' );
+						$this->add_render_attribute( $tooltip_icon_key, 'class', ['pp-pricing-table-tooltip-icon', 'pp-icon'] );
 
 						$tooltip_content_key = $this->get_repeater_setting_key( 'tooltip_content_key', 'table_features', $index );
 
@@ -3082,7 +3142,7 @@ class Pricing_Table extends Powerpack_Widget {
 						<li <?php echo wp_kses_post( $this->get_render_attribute_string( $feature_list_key ) ); ?>>
 							<div <?php echo wp_kses_post( $this->get_render_attribute_string( $feature_content_key ) ); ?>>
 								<?php
-								if ( ! empty( $item['select_feature_icon'] ) || ( ! empty( $item['feature_icon']['value'] ) && $is_new ) ) : ?>
+								if ( ! empty( $item['feature_icon'] ) || ( ! empty( $item['select_feature_icon']['value'] ) && $is_new ) ) : ?>
 									<span class="pp-pricing-table-fature-icon pp-icon">
 										<?php
 										if ( $is_new || $migrated ) {
@@ -3366,7 +3426,7 @@ class Pricing_Table extends Powerpack_Widget {
 						} #>
 						<li class="elementor-repeater-item-{{ item._id }} <# if ( item.exclude == 'yes' ) { #> excluded <# } #>">
 							<div {{{ view.getRenderAttributeString( featureContentKey ) }}}>
-								<# if ( item.select_feature_icon || item.feature_icon.value ) { #>
+								<# if ( item.feature_icon || item.select_feature_icon.value ) { #>
 									<span class="pp-pricing-table-fature-icon pp-icon">
 									<#
 										iconsHTML[ index ] = elementor.helpers.renderIcon( view, item.select_feature_icon, { 'aria-hidden': true }, 'i', 'object' );

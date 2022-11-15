@@ -14,6 +14,7 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Schemes\Typography as Scheme_Typography;
 use Elementor\Core\Schemes\Color as Scheme_Color;
+use Elementor\Modules\DynamicTags\Module as TagsModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -67,7 +68,7 @@ class Twitter_Tweet extends Powerpack_Widget {
 		);
 	}
 
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_tweet',
 			array(
@@ -78,9 +79,17 @@ class Twitter_Tweet extends Powerpack_Widget {
 		$this->add_control(
 			'tweet_url',
 			array(
-				'label'   => __( 'Tweet URL', 'powerpack' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '',
+				'label'       => __( 'Tweet URL', 'powerpack' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'dynamic'     => [
+					'active'     => true,
+					'categories' => [
+						TagsModule::POST_META_CATEGORY,
+						TagsModule::URL_CATEGORY,
+					],
+				],
+				'default'     => '',
 			)
 		);
 
@@ -188,7 +197,7 @@ class Twitter_Tweet extends Powerpack_Widget {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings();
+		$settings = $this->get_settings_for_display();
 
 		$attrs = array();
 		$attr  = ' ';
@@ -219,12 +228,10 @@ class Twitter_Tweet extends Powerpack_Widget {
 
 			$attr .= ' ';
 		}
-
 		?>
-		<div class="pp-twitter-tweet" <?php echo esc_attr( $attr ); ?>>
-			<blockquote class="twitter-tweet" <?php echo esc_attr( $attr ); ?>><a href="<?php echo esc_url( $url ); ?>"></a></blockquote>
+		<div class="pp-twitter-tweet" <?php echo wp_kses_post( $attr ); ?>>
+			<blockquote class="twitter-tweet" <?php echo wp_kses_post( $attr ); ?>><a href="<?php echo esc_url( $url ); ?>"></a></blockquote>
 		</div>
 		<?php
 	}
-
 }

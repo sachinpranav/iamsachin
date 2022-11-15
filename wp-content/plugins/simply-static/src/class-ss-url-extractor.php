@@ -24,20 +24,19 @@ class Url_Extractor {
 	 * - http://php.net/manual/en/book.dom.php
 	 */
 
-	/** @const */
 	protected static $match_tags = array(
-		// HTML
 		'a'            => array( 'href', 'urn' ),
 		'base'         => array( 'href' ),
-		'form'         => array( 'action', 'data' ),
+		'form'         => array( 'data' ),
 		'img'          => array( 'src', 'usemap', 'longdesc', 'dynsrc', 'lowsrc', 'srcset' ),
+		'source'       => array( 'srcset' ),
 		'amp-img'      => array( 'src', 'srcset' ),
 		'link'         => array( 'href' ),
 
 		'applet'       => array( 'code', 'codebase', 'archive', 'object' ),
 		'area'         => array( 'href' ),
 		'body'         => array( 'background', 'credits', 'instructions', 'logo' ),
-		'input'        => array( 'src', 'usemap', 'dynsrc', 'lowsrc', 'action', 'formaction' ),
+		'input'        => array( 'src', 'usemap', 'dynsrc', 'lowsrc', 'formaction' ),
 
 		'blockquote'   => array( 'cite' ),
 		'del'          => array( 'cite' ),
@@ -54,7 +53,7 @@ class Url_Extractor {
 		'embed'        => array( 'src', 'code', 'pluginspage' ),
 		'event-source' => array( 'src' ),
 		'html'         => array( 'manifest', 'background', 'xmlns' ),
-		'source'       => array( 'src' ),
+		'source'       => array( 'src', 'srcset' ),
 		'video'        => array( 'src', 'poster' ),
 
 		'bgsound'      => array( 'src' ),
@@ -66,7 +65,7 @@ class Url_Extractor {
 		'layer'        => array( 'src' ),
 		'xml'          => array( 'src' ),
 
-		'button'       => array( 'action', 'formaction' ),
+		'button'       => array( 'formaction' ),
 		'datalist'     => array( 'data' ),
 		'select'       => array( 'data' ),
 
@@ -103,7 +102,7 @@ class Url_Extractor {
 	 * The url of the site
 	 * @var array
 	 */
-	protected $extracted_urls = array();
+	public $extracted_urls = array();
 
 	/**
 	 * Constructor
@@ -264,6 +263,7 @@ class Url_Extractor {
 	 */
 	private function extract_and_replace_urls_in_html() {
 		$html_string = $this->get_body();
+		$match_tags  = apply_filters( 'ss_match_tags', self::$match_tags );
 
 		$dom = HtmlDomParser::str_get_html( $html_string );
 
@@ -272,7 +272,7 @@ class Url_Extractor {
 			return $html_string;
 		} else {
 			// handle tags with attributes
-			foreach ( self::$match_tags as $tag_name => $attributes ) {
+			foreach ( $match_tags as $tag_name => $attributes ) {
 
 				$tags = $dom->find( $tag_name );
 
@@ -285,9 +285,15 @@ class Url_Extractor {
 			$tags = $dom->find( 'style' );
 
 			foreach ( $tags as $tag ) {
-				$updated_css = $this->extract_and_replace_urls_in_css( $tag->innertext );
-				$tag->innertext = $updated_css;
+				$updated_css = $this->extract_and_replace_urls_in_css( $tag->innerhtmlKeep );
+				$tag->innerhtmlKeep = $updated_css;
 			}
+
+			do_action(
+				'ss_after_extract_and_replace_urls_in_html',
+				$dom,
+				$this
+			);
 
 			return $dom->save();
 		}
@@ -404,7 +410,7 @@ class Url_Extractor {
 	 * @return string The URL that should be added to the list of extracted URLs
 	 * @return string The URL, converted to an absolute/relative/offline URL
 	 */
-	private function add_to_extracted_urls( $extracted_url ) {
+	public function add_to_extracted_urls( $extracted_url ) {
 		$url = Util::relative_to_absolute_url( $extracted_url, $this->static_page->url );
 
 		if ( $url && Util::is_local_url( $url ) ) {

@@ -1,7 +1,147 @@
+== 2.6.16 ==
+Release date: July 6, 2022
+* Enhancement: Pricing Table - Added Icon Spacing option for tooltip icons
+* Enhancement: Posts - Added Avoid Duplicates option
+* Enhancement: Advanced Accordion - Added ability to open accordions using keypress
+* Enhancement: WP Forms - Added styling options for Section Divider
+
+== 2.6.15 ==
+Release date: June 9, 2022
+* Enhancement: Team Member Carousel - Added support for Tiktok social icon
+* Enhancement: WPForms - Added compatibility for Modern style dropdown fields
+* Enhancement: Info Box Carousel - Added compatibility for Elementor containers
+
+== 2.6.14 ==
+Release date: May 11, 2022
+* Enhancement: Advanced Accordion - Added Custom CSS ID option
+* Enhancement: Advanced Accordion - Rearranged the repeater content inside tabs
+* Enhancement: Flip Box - Added content background and padding options
+* Fixed: Animated Gradient Background - Background overlay was overriding the gradient effect in editor
+* Fixed: Hotspots - Tooltip position issue
+* Enhancement: Core - Added support for Elementor Containers in Saved Section option
+* Enhancement: Core - Added support for Elementor Containers to PowerPack extensions
+
+== 2.6.13 ==
+Release date: April 15, 2022
+* Fixed: Image Comparison - JS error preventing the widget from working
+
+== 2.6.12 ==
+Release date: April 13, 2022
+* Enhancement: Team Member - Added: Margin option for image
+* Enhancement: Advanced Accordion - Added border radius option for title
+* Enhancement: Twitter Tweet - Added support for URL dynamic tags
+* Fixed: Posts - Align Arrows option was not working
+* Fixed: Info Box - Minor CSS glitch
+* Fixed: Display Conditions - Current Date option was not working for single day
+* Enhancement: Image Comparison - Added classes to before and after images
+* Enhancement: Image Comparison - Added Image Size option
+
+== 2.6.11 ==
+Release date: March 23, 2022
+* Hotfix: Compatibility issues with Elementor 3.6.0
+* Set the minimum required Elementor version to 3.2.0
+* Enhancement: Twitter Tweet - Added dynamic tags support to Tweet URL field
+* Enhancement: Info Box Carousel - Added grid layout option
+* Enhancement: Info Box Carousel - Renamed widget to Info Grid & Carousel
+* Fixed: Dual Heading - Issue with long text
+* Fixed: Instagram Feed - Cache Timeout option
+* Fixed: Icon List - Icon Type text field is not showing
+* Fixed: Advanced Posts - Global typography settings for links was overriding post meta typography when post meta link is enabled
+
+== 2.6.10 ==
+Release date: March 3, 2022
+* Enhancement: Team Member, Team Member Carousel - Added button style option for social links
+* Enhancement: Team Member Carousel - Add links for Flickr, Tumblr, Github and Vimeo
+* Enhancement: Flip Box - Added dynamic tags support for title, description and icon image options
+* Enhancement: Instagram Feed - Added option again to the widget for adding custom access token
+* Enhancement: Instagram Feed - Added pause on hover option in swiper slider widgets
+* Enhancement: Info List - Added content padding option
+* Enhancement: Info List - Added content separator option
+* Enhancement: Info List - Added Text Shadow and Spacing options for title
+* Enhancement: Info List - Added spacing option for button
+* Enhancement: Icon List - Added icon size option for individual icons
+* Enhancement: Link Effects - Added HTML tag option
+* Enhancement: Display Conditions - Added support for adding multiple parameters
+* Enhancement: Moved PowerPack extensions settings tab below Advanced section for easy accessibility
+* Fixed: Dual Heading - Fixed minor CSS glitch
+
+== 2.6.9 ==
+Release date: February 7, 2022
+* Fixed: Posts - Arrows were appearing in Grid layout
+* Fixed: Posts - JS error in pp-posts.js file
+
+== 2.6.8 ==
+Release date: February 3, 2022
+* Added: Posts - Option to hide empty comments
+* Fixed: Image Hotspots - JS error
+* Fixed: Info List - Button was not showing on published page
+* Fixed: Link Effects - Spelling mistake in effect setting
+* Enhancement: Posts - Replaced slick slider with swiper slider
+* Enhancement: Removed deprecated _register_controls function from all the widgets
+* Set the minimum Elementor version required to 3.1.0
+
+== 2.6.7 ==
+Release date: January 27, 2022
+* Added: Display Conditions - Request Parameter option
+* Added: Team Member Carousel - Pause on hover option
+* Fixed: Instagram Feed - Issue with token expiry
+* Fixed: Core - PowerPack widgets category conflict with other plugins
+* Fixed: Gravity Forms - Updated labels and field description selectors
+* Enhancement: Content Reveal, Team Member Carousel - Added support for Inline font icons
+* Enhancement: Content Reveal - Added logic to scroll page to top when Read Less button is clicked
+* Enhancement: Twitter Grid, Twitter Timeline - Converted Tweet Limit text fields to number fields
+
+== 2.6.6 ==
+Release date: January 3, 2022
+* Fixed: Scroll Image widget was not showing in the editor
+* Fixed: Gravity Forms - Styles for multi step forms were not loading in the editor
+* Fixed: PP prefix text overlapping with the search bar in the editor
+* Enhancement: Instagram Feed - Removed custom access token option from widget settings
+
+== 2.6.5 ==
+Release date: December 21, 2021
+* Fixed: PHP error on PowerPack settings page
+
+== 2.6.4 ==
+Release date: December 20, 2021
+* Fixed: Advanced Posts - Issue with equal height option of carousel layout
+* Added: Icon List - Apply Link On option
+* Enhancement: Advanced Accordion - Added ability to open tabs by URL
+
+== 2.6.3 ==
+Release date: December 15, 2021
+* Fixed: Slick slider issue with Elementor 3.5
+* Fixed: Hotspots - Hotspots were not appearing in Safari
+
+== 2.6.2 ==
+Release date: December 1, 2021
+* Fixed: Settings panel navigation issue in PowerPack admin
+
+== 2.6.1 ==
+Release date: November 24, 2021
+* Added: Display Conditions - Option to show Display conditions on columns
+* Added: Display Conditions - Output HTML option for sections
+* Added: Logo Grid - Option to apply custom styles to logo image or logo container
+* Added: Logo Carousel - Background and padding options for logo title
+* Fixed: Logo Carousel - Choose Arrow option was not working in the editor
+* Fixed: Logo Carousel - Issue with Additional Custom Breakpoints
+* Fixed: Gravity Forms - Empty validation error field was showing below file upload field
+* Fixed: Info Box Carousel - Issue with Additional Custom Breakpoints
+* Added: Info Box - Text shadow option for title, subtitle and description
+* Added: Info Box - Content padding option
+* Enhancement: Info Box - Rearranged options
+* Enhancement: Logo Grid - Updated grid CSS code
+* Enhancement: Posts - Updated carousel arrow control
+
+== 2.6.0 ==
+Release date: October 7, 2021
+* New: Animated Gradient Background extension
+* Enhancement: Updated icons for Icon Type option in all the widgets
+
 == 2.5.4 ==
 Release date: August 23, 2021
 * Fixed: PHP error in dashboard
-* Fixed: Instagram Access Token	option was not saving anything
+* Fixed: Instagram Access Token option was not saving anything
 * Enhancement: Added separate tab to manage extensions in PowerPack settings
 
 == 2.5.3 ==

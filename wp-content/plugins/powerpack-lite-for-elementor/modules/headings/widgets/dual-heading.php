@@ -61,7 +61,7 @@ class Dual_Heading extends Powerpack_Widget {
 	/**
 	 * Get widget keywords.
 	 *
-	 * Retrieve the list of keywords the widget belongs to.
+	 * Retrieve the list of keywords the dual heading widget belongs to.
 	 *
 	 * @access public
 	 *
@@ -69,17 +69,6 @@ class Dual_Heading extends Powerpack_Widget {
 	 */
 	public function get_keywords() {
 		return parent::get_widget_keywords( 'Dual_Heading' );
-	}
-
-	/**
-	 * Register dual heading widget controls.
-	 *
-	 * Adds different input fields to allow the user to change and customize the widget settings.
-	 *
-	 * @access protected
-	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-		$this->register_controls();
 	}
 
 	/**
@@ -187,10 +176,10 @@ class Dual_Heading extends Powerpack_Widget {
 				'label'                 => __( 'Second Part Display', 'powerpack' ),
 				'type'                  => Controls_Manager::SELECT,
 				'label_block'           => false,
-				'default'               => 'inline-block',
+				'default'               => 'inline',
 				'options'               => [
-					'inline-block'  => __( 'Inline', 'powerpack' ),
-					'block'         => __( 'Block', 'powerpack' ),
+					'inline' => __( 'Inline', 'powerpack' ),
+					'block'  => __( 'Block', 'powerpack' ),
 				],
 				'prefix_class'          => 'pp-dual-heading-',
 				'selectors'             => [
@@ -208,15 +197,15 @@ class Dual_Heading extends Powerpack_Widget {
 				'options'               => [
 					'left'      => [
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'               => '',
@@ -469,7 +458,7 @@ class Dual_Heading extends Powerpack_Widget {
 					'unit' => 'px',
 				],
 				'selectors'             => [
-					'{{WRAPPER}}.pp-dual-heading-inline-block .pp-second-text' => 'margin-left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.pp-dual-heading-inline .pp-second-text' => 'margin-left: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}}.pp-dual-heading-block .pp-second-text' => 'margin-top: {{SIZE}}{{UNIT}};',
 				],
 				'separator'             => 'before',

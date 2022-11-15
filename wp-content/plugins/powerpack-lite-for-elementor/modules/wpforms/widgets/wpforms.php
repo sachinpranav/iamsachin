@@ -13,6 +13,8 @@ use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Text_Stroke;
+use Elementor\Group_Control_Text_Shadow;
 use Elementor\Core\Schemes\Typography as Scheme_Typography;
 use Elementor\Core\Schemes\Color as Scheme_Color;
 
@@ -48,10 +50,6 @@ class WPforms extends Powerpack_Widget {
 	 */
 	public function get_keywords() {
 		return parent::get_widget_keywords( 'WP_Forms' );
-	}
-
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-		$this->register_controls();
 	}
 
 	/**
@@ -270,15 +268,15 @@ class WPforms extends Powerpack_Widget {
 				'options'               => [
 					'left'      => [
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'               => '',
@@ -444,15 +442,15 @@ class WPforms extends Powerpack_Widget {
 				'options'               => [
 					'left'      => [
 						'title' => __( 'Left', 'powerpack' ),
-						'icon'  => 'fa fa-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
 						'title' => __( 'Center', 'powerpack' ),
-						'icon'  => 'fa fa-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
 						'title' => __( 'Right', 'powerpack' ),
-						'icon'  => 'fa fa-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default'               => '',
@@ -478,7 +476,7 @@ class WPforms extends Powerpack_Widget {
 				'type'              => Controls_Manager::COLOR,
 				'default'           => '',
 				'selectors'         => [
-					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -490,7 +488,7 @@ class WPforms extends Powerpack_Widget {
 				'type'              => Controls_Manager::COLOR,
 				'default'           => '',
 				'selectors'         => [
-					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -502,7 +500,7 @@ class WPforms extends Powerpack_Widget {
 				'label'             => __( 'Border', 'powerpack' ),
 				'placeholder'       => '1px',
 				'default'           => '1px',
-				'selector'          => '{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select',
+				'selector'          => '{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select',
 				'separator'         => 'before',
 			]
 		);
@@ -514,7 +512,7 @@ class WPforms extends Powerpack_Widget {
 				'type'              => Controls_Manager::DIMENSIONS,
 				'size_units'        => [ 'px', 'em', '%' ],
 				'selectors'         => [
-					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -538,7 +536,7 @@ class WPforms extends Powerpack_Widget {
 				],
 				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
-					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'text-indent: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'text-indent: {{SIZE}}{{UNIT}}',
 				],
 				'separator'         => 'before',
 			]
@@ -558,7 +556,7 @@ class WPforms extends Powerpack_Widget {
 				],
 				'size_units'        => [ 'px', 'em', '%' ],
 				'selectors'         => [
-					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'width: {{SIZE}}{{UNIT}}',
 				],
 			]
 		);
@@ -577,7 +575,7 @@ class WPforms extends Powerpack_Widget {
 				],
 				'size_units'        => [ 'px', 'em', '%' ],
 				'selectors'         => [
-					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'height: {{SIZE}}{{UNIT}}',
 				],
 			]
 		);
@@ -658,7 +656,7 @@ class WPforms extends Powerpack_Widget {
 				'name'              => 'field_typography',
 				'label'             => __( 'Typography', 'powerpack' ),
 				'scheme'            => Scheme_Typography::TYPOGRAPHY_4,
-				'selector'          => '{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select',
+				'selector'          => '{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select',
 				'separator'         => 'before',
 			]
 		);
@@ -667,7 +665,7 @@ class WPforms extends Powerpack_Widget {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'              => 'field_box_shadow',
-				'selector'          => '{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select',
+				'selector'          => '{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select',
 				'separator'         => 'before',
 			]
 		);
@@ -785,6 +783,130 @@ class WPforms extends Powerpack_Widget {
 				],
 				'condition'             => [
 					'placeholder_switch'   => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		/**
+		 * Style Tab: Section Divider
+		 * -------------------------------------------------
+		 */
+		$this->start_controls_section(
+			'section_section_divider_style',
+			[
+				'label'                 => __( 'Section Divider', 'powerpack' ),
+				'tab'                   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'section_divider_bg_color',
+			[
+				'label'             => __( 'Background Color', 'powerpack' ),
+				'type'              => Controls_Manager::COLOR,
+				'default'           => '',
+				'selectors'         => [
+					'{{WRAPPER}} .pp-wpforms .wpforms-field-divider' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'section_divider_text_color',
+			[
+				'label'                 => __( 'Text Color', 'powerpack' ),
+				'type'                  => Controls_Manager::COLOR,
+				'selectors'             => [
+					'{{WRAPPER}} .pp-wpforms .wpforms-field-divider h3' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'                  => 'section_divider_typography',
+				'label'                 => __( 'Typography', 'powerpack' ),
+				'selector'              => '{{WRAPPER}} .pp-wpforms .wpforms-field-divider h3',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Text_Stroke::get_type(),
+			[
+				'name' => 'section_divider_text_stroke',
+				'selector' => '{{WRAPPER}} .pp-wpforms .wpforms-field-divider h3',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			[
+				'name' => 'section_divider_text_shadow',
+				'selector' => '{{WRAPPER}} .pp-wpforms .wpforms-field-divider h3',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'              => 'section_divider_border',
+				'label'             => __( 'Border', 'powerpack' ),
+				'placeholder'       => '1px',
+				'default'           => '1px',
+				'selector'          => '{{WRAPPER}} .pp-wpforms .wpforms-field-divider',
+			]
+		);
+
+		$this->add_control(
+			'section_divider_border_radius',
+			[
+				'label'             => __( 'Border Radius', 'powerpack' ),
+				'type'              => Controls_Manager::DIMENSIONS,
+				'size_units'        => [ 'px', 'em', '%' ],
+				'selectors'         => [
+					'{{WRAPPER}} .pp-wpforms .wpforms-field-divider' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'section_divider_padding',
+			[
+				'label'             => __( 'Padding', 'powerpack' ),
+				'type'              => Controls_Manager::DIMENSIONS,
+				'size_units'        => [ 'px', 'em', '%' ],
+				'selectors'         => [
+					'{{WRAPPER}} .pp-wpforms .wpforms-field-divider' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'              => 'section_divider_box_shadow',
+				'selector'          => '{{WRAPPER}} .pp-wpforms .wpforms-field-divider',
+			]
+		);
+
+		$this->add_responsive_control(
+			'section_divider_spacing',
+			[
+				'label'                 => __( 'Spacing', 'powerpack' ),
+				'type'                  => Controls_Manager::SLIDER,
+				'range'                 => [
+					'px'        => [
+						'min'   => 0,
+						'max'   => 100,
+						'step'  => 1,
+					],
+				],
+				'size_units'            => [ 'px', 'em', '%' ],
+				'selectors'             => [
+					'{{WRAPPER}} .pp-wpforms .wpforms-field-divider' => 'margin-bottom: {{SIZE}}{{UNIT}}',
 				],
 			]
 		);

@@ -61,7 +61,7 @@ class Icon_List extends Powerpack_Widget {
 	/**
 	 * Get widget keywords.
 	 *
-	 * Retrieve the list of keywords the widget belongs to.
+	 * Retrieve the list of keywords the icon list widget belongs to.
 	 *
 	 * @access public
 	 *
@@ -69,17 +69,6 @@ class Icon_List extends Powerpack_Widget {
 	 */
 	public function get_keywords() {
 		return parent::get_widget_keywords( 'Icon_List' );
-	}
-
-	/**
-	 * Register icon list widget controls.
-	 *
-	 * Adds different input fields to allow the user to change and customize the widget settings.
-	 *
-	 * @access protected
-	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-		$this->register_controls();
 	}
 
 	/**
@@ -113,7 +102,7 @@ class Icon_List extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_list',
 			[
-				'label'                 => __( 'List', 'powerpack' ),
+				'label'                 => __( 'Icon List', 'powerpack' ),
 			]
 		);
 
@@ -141,6 +130,10 @@ class Icon_List extends Powerpack_Widget {
 
 		$repeater = new Repeater();
 
+		$repeater->start_controls_tabs( 'items_repeater' );
+
+		$repeater->start_controls_tab( 'tab_content', [ 'label' => __( 'Content', 'powerpack' ) ] );
+
 		$repeater->add_control(
 			'text',
 			array(
@@ -161,21 +154,21 @@ class Icon_List extends Powerpack_Widget {
 				'type'        => Controls_Manager::CHOOSE,
 				'label_block' => false,
 				'options'     => array(
-					'none'   => array(
+					'none'  => array(
 						'title' => esc_html__( 'None', 'powerpack' ),
-						'icon'  => 'fa fa-ban',
+						'icon'  => 'eicon-ban',
 					),
-					'icon'   => array(
+					'icon'  => array(
 						'title' => esc_html__( 'Icon', 'powerpack' ),
-						'icon'  => 'fa fa-star',
+						'icon'  => 'eicon-star',
 					),
-					'image'  => array(
+					'image' => array(
 						'title' => esc_html__( 'Image', 'powerpack' ),
-						'icon'  => 'fa fa-picture-o',
+						'icon'  => 'eicon-image-bold',
 					),
-					'number' => array(
-						'title' => esc_html__( 'Number', 'powerpack' ),
-						'icon'  => 'fa fa-hashtag',
+					'text'  => array(
+						'title' => esc_html__( 'Text', 'powerpack' ),
+						'icon'  => 'eicon-font',
 					),
 				),
 				'default'     => 'icon',
@@ -220,12 +213,12 @@ class Icon_List extends Powerpack_Widget {
 		$repeater->add_control(
 			'icon_text',
 			array(
-				'label'       => __( 'Number/Text', 'powerpack' ),
+				'label'       => __( 'Text', 'powerpack' ),
 				'label_block' => false,
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'condition'   => array(
-					'pp_icon_type' => 'number',
+					'pp_icon_type' => 'text',
 				),
 			)
 		);
@@ -243,10 +236,36 @@ class Icon_List extends Powerpack_Widget {
 			)
 		);
 
+		$repeater->end_controls_tab();
+
+		$repeater->start_controls_tab( 'tab_icon', [ 'label' => __( 'Style', 'powerpack' ) ] );
+
+		$repeater->add_responsive_control(
+			'single_icon_size',
+			[
+				'label'                 => __( 'Icon Size', 'powerpack' ),
+				'type'                  => Controls_Manager::SLIDER,
+				'range'                 => [
+					'px' => [
+						'min' => 6,
+						'max' => 100,
+					],
+				],
+				'selectors'             => [
+					'{{WRAPPER}} .pp-list-items {{CURRENT_ITEM}} .pp-icon-list-icon' => 'font-size: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .pp-list-items {{CURRENT_ITEM}} .pp-icon-list-image img' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->end_controls_tabs();
+
 		$this->add_control(
 			'list_items',
 			array(
-				'label'       => '',
+				'label'       => __( 'Items', 'powerpack' ),
 				'type'        => Controls_Manager::REPEATER,
 				'default'     => array(
 					array(
@@ -275,6 +294,20 @@ class Icon_List extends Powerpack_Widget {
 				'default'               => 'full',
 				'separator'             => 'before',
 			]
+		);
+
+		$this->add_control(
+			'link_click',
+			array(
+				'label'        => esc_html__( 'Apply Link On', 'powerpack' ),
+				'type'         => Controls_Manager::SELECT,
+				'options'      => array(
+					'full_width' => esc_html__( 'Full Width', 'powerpack' ),
+					'inline'     => esc_html__( 'Inline', 'powerpack' ),
+				),
+				'default'      => 'inline',
+				'prefix_class' => 'elementor-list-item-link-',
+			)
 		);
 
 		$this->end_controls_section();
@@ -865,7 +898,10 @@ class Icon_List extends Powerpack_Widget {
 
 							$this->add_render_attribute( [
 								$item_key => [
-									'class' => 'pp-icon-list-item',
+									'class' => [
+										'pp-icon-list-item',
+										'elementor-repeater-item-' . $item['_id'],
+									],
 								],
 								$text_key => [
 									'class' => 'pp-icon-list-text',
@@ -1011,7 +1047,10 @@ class Icon_List extends Powerpack_Widget {
 						textKey = view.getRepeaterSettingKey( 'text', 'list_items', index );
 				   
 					view.addRenderAttribute( itemKey, {
-						'class': 'pp-icon-list-item'
+						'class': [
+							'pp-icon-list-item',
+							'elementor-repeater-item-' + item._id,
+						]
 					});
 					view.addRenderAttribute( textKey, {
 						'class': 'pp-icon-list-text'

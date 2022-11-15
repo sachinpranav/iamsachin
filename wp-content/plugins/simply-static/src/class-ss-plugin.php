@@ -14,7 +14,7 @@ class Plugin {
 	 * Plugin version
 	 * @var string
 	 */
-	const VERSION = '2.1.3';
+	const VERSION = '2.1.5.8';
 
 	/**
 	 * The slug of the plugin; used in actions, filters, i18n, table names, etc.
@@ -102,8 +102,15 @@ class Plugin {
 			// Filters
 			add_filter( 'admin_footer_text', array( self::$instance, 'filter_admin_footer_text' ), 15 );
 			add_filter( 'update_footer', array( self::$instance, 'filter_update_footer' ), 15 );
-			add_filter( 'http_request_args', array( self::$instance, 'wpbp_http_request_args' ), 10, 2 );
 			add_filter( 'simplystatic.archive_creation_job.task_list', array( self::$instance, 'filter_task_list' ), 10, 2 );
+
+			$direct_http_args = apply_filters( 'ss_direct_http_request_args', true );
+
+			if ( $direct_http_args ) {
+				add_filter( 'http_request_args', array( self::$instance, 'wpbp_http_request_args' ), 10, 2 );
+			} else {
+				add_action( 'ss_before_static_export', array( self::$instance, 'add_http_filters' ) );
+			}
 
 			self::$instance->options = Options::instance();
 			self::$instance->view = new View();
@@ -238,6 +245,7 @@ class Plugin {
 	 * @return void
 	 */
 	public function run_static_export() {
+		do_action( 'ss_before_static_export' );
 		$this->archive_creation_job->start();
 	}
 
@@ -259,12 +267,13 @@ class Plugin {
 			Util::delete_debug_log();
 			Util::debug_log( "Received request to start generating a static archive" );
 
-			if ( ! defined( 'DISABLE_WP_CRON' ) || DISABLE_WP_CRON !== true ) {
+			if ( 'on' === $this->options->get( 'use_cron' ) && ! defined( 'DISABLE_WP_CRON' ) ) {
 				if ( ! wp_next_scheduled( 'simply_static_site_export_cron' ) ) {
 					wp_schedule_single_event( time(), 'simply_static_site_export_cron' );
 				}
 			} else {
 				// Cron is unavaiable.
+				do_action( 'ss_before_static_export' );
 				$this->archive_creation_job->start();
 			}
 		} elseif ( $action === 'cancel' ) {
@@ -400,6 +409,7 @@ class Plugin {
 			->assign( 'delivery_method', $this->options->get( 'delivery_method' ) )
 			->assign( 'local_dir', $this->options->get( 'local_dir' ) )
 			->assign( 'destination_url_type', $this->options->get( 'destination_url_type' ) )
+			->assign( 'use_cron', $this->options->get( 'use_cron' ) )
 			->assign( 'relative_path', $this->options->get( 'relative_path' ) )
 			->assign( 'http_basic_auth_digest', $this->options->get( 'http_basic_auth_digest' ) )
 			->render();
@@ -495,7 +505,8 @@ class Plugin {
 				'delivery_method'      => $this->fetch_post_value( 'delivery_method' ),
 				'local_dir'            => Util::trailingslashit_unless_blank( $this->fetch_post_value( 'local_dir' ) ),
 				'destination_url_type' => $destination_url_type,
-				'relative_path'        => $relative_path
+				'relative_path'        => $relative_path,
+				'use_cron'             => $this->fetch_post_value( 'use_cron' ),
 			)
 		);
 
@@ -823,6 +834,15 @@ class Plugin {
 	}
 
 	/**
+	 * Remove Basic Auth when Updraft backup is in process
+	 *
+	 * @return void
+	 */
+	public function add_http_filters() {
+		add_filter( 'http_request_args', array( self::$instance, 'wpbp_http_request_args' ), 10, 2 );
+	}
+
+	/**
 	 * Add information links in admin header.
 	 *
 	 * @return void
@@ -830,9 +850,8 @@ class Plugin {
 	public function add_info_links( $info_text ) {
 		ob_start();
 		?>
-		<a href="https://patrickposner.dev/plugins/simply-static" target="_blank">Go Pro</a>	
-		<a href="https://patrickposner.dev/docs/simply-static" target="_blank">Documentation</a>
-		<a href="https://wordpress.org/plugins/simply-static/" target="_blank">Support</a>
+        <a href="https://patrickposner.dev/plugins/simply-static" target="_blank">Simply Static Pro</a>
+        <a href="https://simplycdn.io" target="_blank">Simply CDN</a>
 		<?php
 		$info_text = apply_filters( 'simply_static_info_links', ob_get_clean() );
 		echo $info_text;
